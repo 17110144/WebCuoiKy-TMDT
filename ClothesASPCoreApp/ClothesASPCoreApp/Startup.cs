@@ -69,18 +69,11 @@ namespace ClothesASPCoreApp
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                  name: "areas",
-                  template: "{area=Customer}/{controller=Home}/{action=Index}/{id?}"
-                );
-            });
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

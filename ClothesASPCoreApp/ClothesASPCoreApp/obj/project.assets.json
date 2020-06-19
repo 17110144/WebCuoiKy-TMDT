@@ -8633,11 +8633,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
+      "projectUniqueName": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
       "projectName": "ClothesASPCoreApp",
-      "projectPath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
+      "projectPath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
       "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-      "outputPath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\ClothesASPCoreApp\\ClothesASPCoreApp\\obj\\",
+      "outputPath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",

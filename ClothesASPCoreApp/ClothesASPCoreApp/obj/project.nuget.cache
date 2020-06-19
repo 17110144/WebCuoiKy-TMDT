@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q4LWkGe9q54xwi3MN23asyep03trB42FHoH/IxsWYDFCKyrwEe/3STBV9XwtnNqdux0ZAzGgZ5NeWseV/zbYBg==",
+  "dgSpecHash": "t0DPy4SSmcrI4UwyY6LoRKhCrZBdX+lA62gsY298f3Q9RpFp+Y2GBgrpUYRMk/WN61IurOhnJblLJRycnEKTBQ==",
   "success": true,
-  "projectFilePath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
+  "projectFilePath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.3\\microsoft.aspnetcore.cryptography.internal.3.1.3.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.3\\microsoft.aspnetcore.cryptography.keyderivation.3.1.3.nupkg.sha512",
