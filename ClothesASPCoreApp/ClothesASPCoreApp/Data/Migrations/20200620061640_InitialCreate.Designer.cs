@@ -4,14 +4,16 @@ using ClothesASPCoreApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ClothesASPCoreApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200620061640_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,16 +176,14 @@ namespace ClothesASPCoreApp.Data.Migrations
                     b.Property<DateTime>("Update")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("VendorID")
-                        .HasColumnType("int");
+                    b.Property<string>("Vendor")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryID");
 
                     b.HasIndex("SpecialTagID");
-
-                    b.HasIndex("VendorID");
 
                     b.ToTable("Products");
                 });
@@ -202,22 +202,6 @@ namespace ClothesASPCoreApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SpecialTags");
-                });
-
-            modelBuilder.Entity("ClothesASPCoreApp.Models.Vendors", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vendors");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -469,12 +453,6 @@ namespace ClothesASPCoreApp.Data.Migrations
                     b.HasOne("ClothesASPCoreApp.Models.SpecialTags", "SpecialTags")
                         .WithMany()
                         .HasForeignKey("SpecialTagID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ClothesASPCoreApp.Models.Vendors", "Vendors")
-                        .WithMany()
-                        .HasForeignKey("VendorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

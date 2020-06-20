@@ -314,5 +314,7 @@ D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\ob
 D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\ClothesASPCoreApp.dll
 D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\ClothesASPCoreApp.pdb
 D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\ClothesASPCoreApp.genruntimeconfig.cache
-D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Home\Index.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Home\Privacy.cshtml.g.cs
