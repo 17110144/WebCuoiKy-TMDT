@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {}
+    "C:\\Users\\Admin\\Documents\\GitHub\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {}
   },
   "projects": {
-    "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {
+    "C:\\Users\\Admin\\Documents\\GitHub\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Documents\\GitHub\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
         "projectName": "ClothesASPCoreApp",
-        "projectPath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\HCMUTE\\HK6\\TMDT\\#CuoiKy\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Documents\\GitHub\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Documents\\GitHub\\WebCuoiKy-TMDT\\ClothesASPCoreApp\\ClothesASPCoreApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
