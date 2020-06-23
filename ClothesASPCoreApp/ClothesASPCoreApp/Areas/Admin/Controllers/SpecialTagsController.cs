@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClothesASPCoreApp.Data;
 using ClothesASPCoreApp.Models;
+using ClothesASPCoreApp.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class SpecialTagsController : Controller
     {

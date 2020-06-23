@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vohoa\\Downloads\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {}
+    "D:\\Học chính thức\\Năm 3\\HK 2\\Thương mại điện tử\\Đồ án\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vohoa\\Downloads\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {
+    "D:\\Học chính thức\\Năm 3\\HK 2\\Thương mại điện tử\\Đồ án\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vohoa\\Downloads\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
+        "projectUniqueName": "D:\\Học chính thức\\Năm 3\\HK 2\\Thương mại điện tử\\Đồ án\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
         "projectName": "ClothesASPCoreApp",
-        "projectPath": "C:\\Users\\vohoa\\Downloads\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
+        "projectPath": "D:\\Học chính thức\\Năm 3\\HK 2\\Thương mại điện tử\\Đồ án\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\ClothesASPCoreApp.csproj",
         "packagesPath": "C:\\Users\\vohoa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vohoa\\Downloads\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\obj\\",
+        "outputPath": "D:\\Học chính thức\\Năm 3\\HK 2\\Thương mại điện tử\\Đồ án\\WebCuoiKy-TMDT-master\\WebCuoiKy-TMDT-master\\ClothesASPCoreApp\\ClothesASPCoreApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vohoa\\AppData\\Roaming\\NuGet\\NuGet.Config",

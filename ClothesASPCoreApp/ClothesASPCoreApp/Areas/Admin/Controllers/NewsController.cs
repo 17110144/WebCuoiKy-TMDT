@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class NewsController : Controller
     {

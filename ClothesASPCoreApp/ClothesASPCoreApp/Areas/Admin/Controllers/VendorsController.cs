@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClothesASPCoreApp.Data;
 using ClothesASPCoreApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using ClothesASPCoreApp.Utility;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class VendorsController : Controller
     {

@@ -7,5 +7,8 @@ namespace ClothesASPCoreApp.Models.ViewModel
 {
     public class OrdersViewModel
     {
+        public List<Orders> Orders { get; set; }
+        public PagingInfo PagingInfo { get; set; }
+
     }
 }

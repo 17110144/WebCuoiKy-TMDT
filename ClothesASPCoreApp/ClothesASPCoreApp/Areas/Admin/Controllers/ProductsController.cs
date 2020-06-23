@@ -7,12 +7,14 @@ using ClothesASPCoreApp.Data;
 using ClothesASPCoreApp.Models;
 using ClothesASPCoreApp.Models.ViewModel;
 using ClothesASPCoreApp.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class ProductsController : Controller
     {
@@ -148,7 +150,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 }
 
                 productFromDb.Name = ProductsVM.Products.Name;
-                productFromDb.Vendors = ProductsVM.Products.Vendors;
+                productFromDb.VendorID = ProductsVM.Products.VendorID;
                 productFromDb.Update = DateTime.Now;
                 productFromDb.Price = ProductsVM.Products.Price;
                 productFromDb.Quantity = ProductsVM.Products.Quantity;
