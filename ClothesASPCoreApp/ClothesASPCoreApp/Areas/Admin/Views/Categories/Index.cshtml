@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ClothesASPCoreApp.Models.Categories>
+
+@{ ViewData["Title"] = "Index"; }
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; New Categories Item</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        <partial name="_TableButtonPartial" model="item.Id" />
+    </td>
+</tr>}
+    </tbody>
+</table>

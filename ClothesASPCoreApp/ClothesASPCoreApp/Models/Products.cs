@@ -14,8 +14,6 @@ namespace ClothesASPCoreApp.Models
         [Display(Name = "Product Name")]
         public string Name { get; set; }
 
-        public string Vendor { get; set; }
-
         public DateTime Update { get; set; }
 
         public double Price { get; set; }
@@ -23,6 +21,11 @@ namespace ClothesASPCoreApp.Models
         public int Quantity { get; set; }
 
         public string Image { get; set; }
+
+        [Display(Name = "Vendor")]
+        public int VendorID { get; set; }
+        [ForeignKey("VendorID")]
+        public virtual Vendors Vendors { get; set; }
 
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
