@@ -31,7 +31,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             return View(_db.News.ToList());
         }
 
-        //Phần làm thêm_Trần Thị Bích Ngọc
+       
         //Thêm ràng buộc phân quyền cho SuperAdmin và Admin, chỉ có 2 người dùng này mới được thêm xóa sửa các nội dung tin tức của Web    
         //GET Create Action Method
         [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
