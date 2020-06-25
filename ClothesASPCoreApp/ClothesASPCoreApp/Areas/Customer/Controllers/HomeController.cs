@@ -31,7 +31,7 @@ namespace ClothesASPCoreApp.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _db.Products.Include(m => m.Categories).Include(m => m.SpecialTags).Where(m => m.Id == id).FirstOrDefaultAsync();
+            var product = await _db.Products.Include(m => m.Categories).Include(m => m.Vendors).Include(m => m.SpecialTags).Where(m => m.Id == id).FirstOrDefaultAsync();
 
             return View(product);
         }
