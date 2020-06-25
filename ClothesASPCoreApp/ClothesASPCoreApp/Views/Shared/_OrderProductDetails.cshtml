@@ -38,10 +38,10 @@
                     @Html.DisplayFor(c => item.OrderQuantity)
                 </td>
                 <td style="text-align:center">
-                    @String.Format("{0:c}", item.Products.Price)
+                    @Html.DisplayFor(c => item.Products.Price) đ
                 </td>
                 <th style="text-align:center;">
-                    @String.Format("{0:c}", total)
+                    @String.Format("{0}", total) đ
                 </th>
             </tr>
         }
