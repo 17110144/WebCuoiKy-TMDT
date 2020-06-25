@@ -1,0 +1,125 @@
+﻿@model FlowerShopWebApp.Models.ViewModel.ShoppingCartViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<form method="post">
+    <br /><br />
+    <h2 class="text-info">Your Shopping Cart</h2>
+    <br />
+    @if (Model.Products.Count > 0)
+    {
+        <div class="container border border-secondary rounded" style="padding:15px;">
+            <div class="row">
+                <div class="col-8" style="border-right:1px solid #bbb9b9;">
+                    <table class="table table-striped" width="100%">
+                        <tr class="table-info">
+                            <th style="text-align:center; width:20%"></th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.Products.FirstOrDefault().Name"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label>Available</label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.Products.FirstOrDefault().Price"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.Products.FirstOrDefault().Categories.Name"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.OrderDetails.FirstOrDefault().OrderQuantity"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label>Order Quantity</label>
+                            </th>
+                            <th style="text-align:center;"></th>
+                        </tr>
+
+                        @for (int i = 0; i < Model.Products.Count; i++)
+                        {
+                            <tr style="padding:50px;">
+                                <td>
+                                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@Model.Products[i].Id">
+                                        <img src="@Model.Products[i].Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                                    </a>
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => Model.Products[i].Name)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => Model.Products[i].Quantity)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => Model.Products[i].Price)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => Model.Products[i].Categories.Name)
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(c => Model.OrderDetails[i].OrderQuantity, new { @class = "form-control", type = "number", min = "1", step = "1" })
+                                    </div>
+                                </td>
+                                <td style="text-align:center">
+                                    <button type="submit" class="btn btn-danger" asp-action="remove" asp-route-id="@Model.Products[i].Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="col-4" style="padding-left:30px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Name : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.CustomerName" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Phone Number : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.CustomerPhoneNumber" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Email  : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.CustomerEmail" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" id="btnPlaceOrder" class="btn btn-success">Schedule Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>No items added to the shopping cart...</div>
+    }
+</form>
+
+@section Scripts{
+    <script>
+$('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: '10',
+            maxTime: '3:00pm',
+            startTime: '10:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: +0, maxDate: "+3M"
+            });
+        });</script>
+}
+
