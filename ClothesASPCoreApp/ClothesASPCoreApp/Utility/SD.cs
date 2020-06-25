@@ -15,6 +15,5 @@ namespace ClothesASPCoreApp.Utility
         public const string AdminEndUser = "Admin";
         public const string SuperAdminEndUser = "Super Admin";
         public const string EndUser = "User";
-        public const string Shipper = "Shipper";
     }
 }
