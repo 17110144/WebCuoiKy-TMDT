@@ -1,10 +1,24 @@
-﻿@model List<ClothesASPCoreApp.Models.Products>
+﻿@model ClothesASPCoreApp.Models.ViewModel.ListProductViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<form asp-area="Customer" asp-controller="Home" asp-action="Index" method="get">
+    <p>
+        Danh mục sản phẩm
+        <select asp-for="ProductCate" asp-items="Model.Category">
+            <option value="">All</option>
+        </select>
+        Tìm theo tên sản phẩm: <input type="text" name="SearchString">
+        <input type="submit" value="Tìm" />
+        <a asp-action="Index">Hiển thị tất cả sản phẩm</a>
+    </p>
+</form>
+<br />
 
-<br />
-<br />
 
 <div class="row">
-    @foreach (var product in Model)
+    @foreach (var product in Model.Products)
     {
         <div class="col-4">
             <div class="card mb-4">
@@ -27,3 +41,5 @@
         </div>
     }
 </div>
+
+

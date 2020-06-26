@@ -10,6 +10,8 @@ using ClothesASPCoreApp.Data;
 using ClothesASPCoreApp.Extensions;
 
 using Microsoft.EntityFrameworkCore;
+using ClothesASPCoreApp.Models.ViewModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClothesASPCoreApp.Controllers
 {
@@ -23,10 +25,45 @@ namespace ClothesASPCoreApp.Controllers
             _db = db;
         }
 
+
+        //Trang home mặc định chứa tất cả các sản phẩm của shop
         public async Task<IActionResult> Index()
         {
-            var productList = await _db.Products.Include(m => m.Categories).Include(m => m.SpecialTags).ToListAsync();
-            return View(productList);
+            var productList = await _db.Products.Include(m => m.Categories).Include(m => m.Vendors).Include(m => m.SpecialTags).ToListAsync();
+
+            var ListProductVM = new ListProductViewModel
+            {
+                Products = productList
+            };
+
+            return View(ListProductVM);
+        }
+
+        [HttpGet]
+        //Trang home sau khi tìm kiếm theo từ khóa hoặc danh mục
+        public async Task<IActionResult> Index(string productCate, string searchString)
+        {
+            IQueryable<string> cateQuery = from m in _db.Categories
+                                           orderby m.Name
+                                           select m.Name;
+
+            var products = from p in _db.Products select p;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.Name.Contains(searchString));
+            }
+            if (!string.IsNullOrEmpty(productCate))
+            {
+                products = products.Where(x => x.Categories.Name == productCate);
+            }
+
+            var ListProductVM = new ListProductViewModel
+            {
+                Category = new SelectList(await cateQuery.Distinct().ToListAsync()),
+                Products = await products.ToListAsync()
+            };
+
+            return View(ListProductVM);
         }
 
         public async Task<IActionResult> Details(int id)
