@@ -44,7 +44,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         }
         //GET Delete Action Method
 
-        //[Authorize(Roles = SD.SuperAdminEndUser)]
+        [Authorize(Roles = SD.SuperAdminEndUser)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

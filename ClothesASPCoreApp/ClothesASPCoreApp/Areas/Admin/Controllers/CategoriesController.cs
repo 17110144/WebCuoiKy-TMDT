@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = SD.SuperAdminEndUser)]
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class CategoriesController : Controller
     {

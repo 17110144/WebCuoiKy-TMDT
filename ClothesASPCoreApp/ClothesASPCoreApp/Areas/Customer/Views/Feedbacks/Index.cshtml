@@ -57,15 +57,12 @@
                     @Html.DisplayFor(m => item.Date)
                 </td>
                 <td>
-                    @*@if (User.IsInRole(SD.SuperAdminEndUser))
+                    @if (User.IsInRole(SD.SuperAdminEndUser))
                     {
                         <a type="button" class="btn btn-danger" href="@Url.Action("Delete/" + item.Id).Replace("%2F", "/")">
                             <i class="fas fa-trash-alt"></i>
                         </a>
-                    }*@
-                    <a type="button" class="btn btn-danger" href="@Url.Action("Delete/" + item.Id).Replace("%2F", "/")">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
+                    }
                 </td>
             </tr>
         }

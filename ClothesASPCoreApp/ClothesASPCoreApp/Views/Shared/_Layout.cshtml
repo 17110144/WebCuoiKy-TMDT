@@ -36,14 +36,8 @@
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="Customer" asp-controller="Feedbacks" asp-action="Index">Feedbacks</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="News" asp-action="Index">News</a></li>
 
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Categories" asp-action="Index">Categories</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="SpecialTags" asp-action="Index">SpecialTags</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Vendors" asp-action="Index">Vendors</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="Index">Products</a></li>
 
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Orders" asp-action="Index">Orders</a></li>
-
-                        @*@if (User.IsInRole(SD.SuperAdminEndUser))
+                        @if (User.IsInRole(SD.SuperAdminEndUser))
                         {
                             <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Categories" asp-action="Index">Categories</a></li>
                             <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="SpecialTags" asp-action="Index">SpecialTags</a></li>
@@ -54,7 +48,7 @@
                         {
                             <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Orders" asp-action="Index">Orders</a></li>
 
-                        }*@
+                        }
 
                         @if (HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart") != null)
                         {

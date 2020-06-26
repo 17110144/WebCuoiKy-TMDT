@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
+    [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class OrdersController : Controller
     {

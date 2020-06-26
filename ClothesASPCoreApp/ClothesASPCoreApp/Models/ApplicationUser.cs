@@ -10,10 +10,7 @@ namespace ClothesASPCoreApp.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Display(Name = "Sales Person")]
         public string Name { get; set; }
 
-        [NotMapped]
-        public bool IsSuperAdmin { get; set; }
     }
 }
