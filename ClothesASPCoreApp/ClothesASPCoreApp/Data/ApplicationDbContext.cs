@@ -14,6 +14,7 @@ namespace ClothesASPCoreApp.Data
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Feedbacks> Feedbacks { get; set; }
         public DbSet<Products> Products { get; set; }

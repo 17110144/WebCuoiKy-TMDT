@@ -38,5 +38,7 @@ namespace ClothesASPCoreApp.Models
         public virtual SpecialTags SpecialTags { get; set; }
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+
+        public bool isPublic { get; set; }
     }
 }
