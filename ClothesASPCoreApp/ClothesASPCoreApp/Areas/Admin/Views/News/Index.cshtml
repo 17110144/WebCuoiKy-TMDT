@@ -10,43 +10,54 @@
 
 <div class="row">
     <div class="col-6">
-        <h2 class="text-info"> News List</h2>
+        <h2 class="text-info">Danh sách tin</h2>
     </div>
     <div class="col-6 text-right">
-        @if (User.IsInRole(SD.SuperAdminEndUser) || User.IsInRole(SD.AdminEndUser))
-        {
-            <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; New News </a>
-        }
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm tin mới </a>
     </div>
 </div>
 
+
 <br />
 <br />
 
-<div class="row">
-    @foreach (var tinmoi in Model)
-    {
-        <div class="col-4">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">
-                        <label style="font-size:23px;color:steelblue;">@tinmoi.Title</label>
-                    </h4>
-                </div>
-                <img class="card-img-top" style="height:100%;" src="@tinmoi.Image" alt="Card Image" />
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="text-body">
-                            <b>@tinmoi.Content</b>
-                        </div>
-                    </div>
-                    @if (User.IsInRole(SD.SuperAdminEndUser) || User.IsInRole(SD.AdminEndUser))
-                    {
-                        <partial name="_TableButtonPartial" model="tinmoi.Id" />
-                    }
-                </div>
-            </div>
-        </div>
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.isPublic)
+            </th>
+            <th></th>
+        </tr>
 
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Title)
+                </td>
+                <th>
+                    @Html.DisplayFor(m => item.Content)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => item.Date)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => item.isPublic)
+                </th>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+        }
+    </table>
 </div>

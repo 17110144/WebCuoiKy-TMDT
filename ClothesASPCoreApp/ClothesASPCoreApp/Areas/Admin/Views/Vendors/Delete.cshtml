@@ -4,7 +4,7 @@
 }
 
 <br />
-<h2 class="text-info">Delete Vendor</h2>
+<h2 class="text-info">Xóa nhà cung cấp sản phẩm</h2>
 
 <form method="post" asp-action="Delete">
     <div class="p-4 border rounded">
@@ -16,10 +16,34 @@
                 <input asp-for="Name" disabled class="form-control" />
             </div>
         </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Address"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Address" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="PhoneNumber"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="PhoneNumber" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Description"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Description" disabled class="form-control" />
+            </div>
+        </div>
         <br />
         <div class="form-group">
-            <input type="submit" class="btn btn-danger" asp-route-id="@Model.Id" value="Delete" />
-            <a asp-action="Index" class="btn btn-success">Back to List</a>
+            <input type="submit" class="btn btn-danger" asp-route-id="@Model.Id" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về</a>
         </div>
     </div>
 </form>

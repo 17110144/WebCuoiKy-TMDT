@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ClothesASPCoreApp.Models.Products>
-
-
-@{ ViewData["Title"] = "Index"; }
+@{ 
+    ViewData["Title"] = "Index";
+}
 
 
 <br />
@@ -9,10 +9,10 @@
 
 <div class="row">
     <div class="col-6">
-        <h2 class="text-info"> Product List</h2>
+        <h2 class="text-info">Danh sách sản phẩm</h2>
     </div>
     <div class="col-6 text-right">
-        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; New Product </a>
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm sản phẩm mới </a>
     </div>
 </div>
 
@@ -27,22 +27,31 @@
                 @Html.DisplayNameFor(m => m.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Vendors)
+                Thương hiệu
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Update)
+                Nhà cung cấp
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Price)
+                Ngày cập nhật
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Quantity)
+                Đơn giá
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Categories)
+                Số lượng tồn kho
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.SpecialTags)
+                Danh mục
+            </th>
+            <th>
+                Loại sản phẩm
+            </th>
+            <th>
+                Tên thẻ
+            </th>
+            <th>
+                Đã công bố
             </th>
             <th></th>
             <th></th>
@@ -54,6 +63,9 @@
                 <td>
                     @Html.DisplayFor(m => item.Name)
                 </td>
+                <th>
+                    @Html.DisplayFor(m => item.Brands.Name)
+                </th>
                 <th>
                     @Html.DisplayFor(m => item.Vendors.Name)
                 </th>
@@ -70,10 +82,16 @@
                     @Html.DisplayFor(m => item.Categories.Name)
                 </td>
                 <td>
+                    @Html.DisplayFor(m => item.ProductTypes.Name)
+                </td>
+                <td>
                     @if (!item.SpecialTags.Name.Equals("--None--"))
                     {
                         @Html.DisplayFor(m => item.SpecialTags.Name)
                     }
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.isPublic)
                 </td>
                 <td>
                     <partial name="_TableButtonPartial" model="item.Id" />

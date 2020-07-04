@@ -71,15 +71,15 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
             if (searchName != null)
             {
-                OrderVM.Orders = OrderVM.Orders.Where(a => a.CustomerName.ToLower().Contains(searchName.ToLower())).ToList();
+                OrderVM.Orders = OrderVM.Orders.Where(a => a.Customers.Name.ToLower().Contains(searchName.ToLower())).ToList();
             }
             if (searchEmail != null)
             {
-                OrderVM.Orders = OrderVM.Orders.Where(a => a.CustomerEmail.ToLower().Contains(searchEmail.ToLower())).ToList();
+                OrderVM.Orders = OrderVM.Orders.Where(a => a.Customers.Email.ToLower().Contains(searchEmail.ToLower())).ToList();
             }
             if (searchPhone != null)
             {
-                OrderVM.Orders = OrderVM.Orders.Where(a => a.CustomerPhoneNumber.ToLower().Contains(searchPhone.ToLower())).ToList();
+                OrderVM.Orders = OrderVM.Orders.Where(a => a.Customers.PhoneNumber.ToLower().Contains(searchPhone.ToLower())).ToList();
             }
             if (searchDate != null)
             {
@@ -122,19 +122,20 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var orderDetailsList = (IEnumerable<OrderDetails>)(from od in _db.OrderDetails
-                                                               join o in _db.Orders
-                                                               on od.OrderId equals o.Id
-                                                               where o.Id == id
-                                                               select od).Include("Products");
+            var productList = (IEnumerable<Products>)(from p in _db.Products
+                                                      join a in _db.OrderDetails
+                                                      on p.Id equals a.ProductId
+                                                      where a.OrderId == id
+                                                      select p).Include("Vendors").Include("Brands");
 
             OrderDetailsViewModel objOrderVM = new OrderDetailsViewModel()
             {
-                Orders = _db.Orders.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
+                Orders = _db.Orders.Include(a => a.Customers).Include(a => a.OrderDetails).Include(a => a.SalesPerson)
+                      .Where(a => a.Id == id).FirstOrDefault(),
                 SalesPerson = _db.ApplicationUser.ToList(),
-                OrderDetails = orderDetailsList.ToList()
-
+                Products = productList.ToList()
             };
+
             return View(objOrderVM);
         }
 
@@ -147,16 +148,14 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var ordersFormDb = _db.Orders.Where(a => a.Id == objOrderVM.Orders.Id).FirstOrDefault();
-                ordersFormDb.CustomerName = objOrderVM.Orders.CustomerName;
-                ordersFormDb.CustomerEmail = objOrderVM.Orders.CustomerEmail;
-                ordersFormDb.CustomerPhoneNumber = objOrderVM.Orders.CustomerPhoneNumber;
+                ordersFormDb.Customers = objOrderVM.Orders.Customers;
                 ordersFormDb.isConfirmed = objOrderVM.Orders.isConfirmed;
                 if (User.IsInRole(SD.SuperAdminEndUser))
                 {
                     ordersFormDb.SalesPersonId = objOrderVM.Orders.SalesPersonId;
                 }
-                /*-TH1--------------Trừ số lượng hàng khi Admin xác nhận----------------------*/
 
+                /*---------------Trừ số lượng hàng khi Admin xác nhận----------------------*/
                 //if (ordersFormDb.isConfirmed == true)
                 //{
                 //    var productsList = _db.Products.ToList();
@@ -171,10 +170,8 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 //        }
                 //    }
                 //}
-                /*-----------------------------------------------------------------------*/
 
                 _db.SaveChanges();
-
                 return RedirectToAction(nameof(Index));
             }
 
@@ -189,22 +186,21 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            //Tạo một danh sách với LINQ để tìm ra danh sách đơn đặt hàng chi tiết ứng mới mỗi id được truyền vào khi nhấn Details
-            var orderDetailsList = (IEnumerable<OrderDetails>)(from p in _db.OrderDetails
-                                                               join a in _db.Orders
-                                                               on p.OrderId equals a.Id
-                                                               where a.Id == id
-                                                               select p).Include("Products");
+            var productList = (IEnumerable<Products>)(from p in _db.Products
+                                                      join a in _db.OrderDetails
+                                                      on p.Id equals a.ProductId
+                                                      where a.OrderId == id
+                                                      select p).Include("Vendors").Include("Brands");
 
             OrderDetailsViewModel objOrderVM = new OrderDetailsViewModel()
             {
-                Orders = _db.Orders.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
+                Orders = _db.Orders.Include(a => a.Customers).Include(a => a.OrderDetails).Include(a => a.SalesPerson)
+                      .Where(a => a.Id == id).FirstOrDefault(),
                 SalesPerson = _db.ApplicationUser.ToList(),
-                OrderDetails = orderDetailsList.ToList()
+                Products = productList.ToList()
             };
 
             return View(objOrderVM);
-
         }
 
 
@@ -224,9 +220,9 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
             OrderDetailsViewModel objOrderVM = new OrderDetailsViewModel()
             {
-                Orders = _db.Orders.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
+                Orders = _db.Orders.Include(o => o.Customers).Include(o => o.SalesPerson).Include(o => o.OrderDetails).Where(o => o.Id == id).FirstOrDefault(),
                 SalesPerson = _db.ApplicationUser.ToList(),
-                OrderDetails = orderDetailsList.ToList()
+                //OrderDetails = orderDetailsList.ToList()
             };
 
             return View(objOrderVM);
@@ -239,26 +235,30 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Order = await _db.Orders.FindAsync(id);
-            //Phần làm thêm_Phan Đình Hoàng
-            //Khi xóa đơn hàng thì số lượng sản phẩm sẽ được hoàn trả  về lại kho hàng của shop
-            var orderDetailsList = (IEnumerable<OrderDetails>)(from od in _db.OrderDetails
-                                                               join o in _db.Orders
-                                                               on od.OrderId equals o.Id
-                                                               where o.Id == id
-                                                               select od).Include("Products");
-            var productsList = _db.Products.ToList();
-            foreach (var item in orderDetailsList)
+            var order = await _db.Orders.FindAsync(id);
+            var customer = await _db.Customers.FindAsync(order.CustomerID);
+            var tableOrderDetail = _db.OrderDetails.ToList();
+            var tableProduct = _db.Products.ToList();
+            foreach (var item in tableOrderDetail)
             {
-                for (int j = 0; j < productsList.Count(); j++)
+                if (item.OrderId == order.Id)
                 {
-                    if (item.ProductId == productsList[j].Id)
+                    var orderdetail = await _db.OrderDetails.FindAsync(item.Id);
+                    foreach (var product in tableProduct)
                     {
-                        productsList[j].Quantity += item.OrderQuantity;
+                        if (product.Id == orderdetail.ProductId)
+                        {
+                            int newQuantity = product.Quantity + orderdetail.OrderQuantity;
+                            var productDB = await _db.Products.FindAsync(orderdetail.ProductId);
+                            productDB.Quantity = newQuantity;
+                            _db.Products.Update(productDB);
+                        }
                     }
+                    _db.OrderDetails.Remove(orderdetail);
                 }
             }
-            _db.Orders.Remove(Order);
+            _db.Customers.Remove(customer);
+            _db.Orders.Remove(order);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

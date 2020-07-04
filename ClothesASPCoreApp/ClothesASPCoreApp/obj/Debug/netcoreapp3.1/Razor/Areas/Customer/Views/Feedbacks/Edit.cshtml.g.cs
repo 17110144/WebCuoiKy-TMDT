@@ -27,7 +27,7 @@ using ClothesASPCoreApp.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4118a08de60af59d912ca7767882779bdf526f90", @"/Areas/Customer/Views/Feedbacks/Edit.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f050e3cc29bf2e0fc5021ee13256f423836cbe7b", @"/Areas/Customer/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f49485cff35c6cbd766243d717c1a31f6be7e2ec", @"/Areas/Customer/Views/_ViewImports.cshtml")]
     public class Areas_Customer_Views_Feedbacks_Edit : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ClothesASPCoreApp.Models.Feedbacks>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-danger"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);

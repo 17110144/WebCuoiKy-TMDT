@@ -1,69 +1,171 @@
-﻿@model ClothesASPCoreApp.Models.ViewModel.ListProductViewModel
+﻿@using ClothesASPCoreApp.Utility;
+@model ClothesASPCoreApp.Models.ViewModel.HomeViewModel
+@using Microsoft.AspNetCore.Http;
+@using ClothesASPCoreApp.Extensions;
+@using ClothesASPCoreApp.Models.ViewModel;
+@inject IHttpContextAccessor HttpContextAccessor
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home Page";
+
 }
-<br />
-
-<form asp-area="Customer" asp-controller="Home" asp-action="Index" method="get">
-    <div class="p-3 border rounded">
-        <div class="form-group row">
-            <div class="col-3">
-                <label>Category</label>
-            </div>
-            <div class="col-5">
-                <select asp-for="ProductCate" asp-items="Model.Category" class="form-control">
-                    <option value="">All</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-3">
-                <label>Product Name</label>
-            </div>
-            <div class="col-5">
-                <input type="text" name="SearchString" class="form-control" />
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="hero-items owl-carousel">
+        <div class="single-hero-items set-bg" data-setbg="img/hero-1.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <span>Bag,kids</span>
+                        <h1>Black friday</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore
+                        </p>
+                        <a href="#" class="primary-btn">Shop Now</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2>Sale <span>50%</span></h2>
+                </div>
             </div>
         </div>
-
-        <div class="form-group row">
-            <div class="col-7">
-                <a asp-action="Index">Get all product</a>
-            </div>
-
-            <div class="col-3">
-                <button type="submit" name="submit" value="Search" class="btn btn-primary">
-                    <i class="fas fa-search"></i> Search
-                </button>
+        <div class="single-hero-items set-bg" data-setbg="img/hero-2.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <span>Bag,kids</span>
+                        <h1>Black friday</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore
+                        </p>
+                        <a href="#" class="primary-btn">Shop Now</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2>Sale <span>50%</span></h2>
+                </div>
             </div>
         </div>
     </div>
-</form>
-
-<br />
-<div class="row">
-    @foreach (var product in Model.Products)
-    {
-        <div class="col-4">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">
-                        <label style="font-size:23px;color:steelblue;">@product.Name</label>
-                    </h4>
+</section>
+<!-- Hero Section End -->
+<!-- Banner Section Begin - đưa loại sản phẩm lên đây-->
+<div class="banner-section spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="single-banner">
+                    <img src="~/img/banner-1.jpg" alt="">
+                    <div class="inner-text">
+                        <h4>Áo</h4>
+                    </div>
                 </div>
-
-                <img class="card-img-top" style="height:100%;" src="@product.Image" alt="Card Image" />
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <label style="font-size:20px; color:black"><b>@product.Price đ </b></label>
-                        </div>
-                        <a style="font-size:15px; color:white" asp-action="Details" asp-controller="Home" class="btn btn-success pull-right btn-outline-info" asp-route-id="@product.Id"> View Details</a>
+            </div>
+            <div class="col-lg-4">
+                <div class="single-banner">
+                    <img src="~/img/banner-2.jpg" alt="">
+                    <div class="inner-text">
+                        <h4>Quần</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="single-banner">
+                    <img src="~/img/banner-3.jpg" alt="">
+                    <div class="inner-text">
+                        <h4>Đồ âu</h4>
                     </div>
                 </div>
             </div>
         </div>
-    }
+    </div>
 </div>
-
-
+<!-- Banner Section End -->
+<!-- Sản phẩn bán chạy Section Begin -->
+<section class="women-banner spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="product-large set-bg" data-setbg="img/products/women-large.jpg">
+                    <h2>Sản phẩm bán chạy</h2>
+                    <a href="#">Khám phá ngay</a>
+                </div>
+            </div>
+            <div class="col-lg-8 offset-lg-1">
+                <div class="product-slider owl-carousel">
+                    @foreach (var p in Model.Products)
+                    {
+                        if (p.SpecialTags.Name.Equals("HANGBANCHAY"))
+                        {
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="@p.Image" alt="">
+                                    <ul>
+                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li> <!--Nút thêm vào giỏ hàng-->
+                                        <li class="quick-view"><a asp-area="Customer" asp-controller="Shopping" asp-action="Details" asp-route-id=@p.Id>Xem chi tiết</a></li> <!--Nút xem chi tiết sản phẩm-->
+                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">@p.Brands.Name</div>
+                                    <a href="#">
+                                        <h5>@p.Name</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        @p.Price đ
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Sản phẩn bán chạy Section End -->
+<br/><br/>
+<!-- Sản phẩm mới về Section Begin-->
+<section class="man-banner spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="product-slider owl-carousel">
+                    @foreach (var p in Model.Products)
+                    {
+                        if (p.SpecialTags.Name.Equals("HANGMOIVE"))
+                        {
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="@p.Image" alt="">
+                                    <ul>
+                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li> <!--Nút thêm vào giỏ hàng-->
+                                        <li class="quick-view"><a asp-area="Customer" asp-controller="Shopping" asp-action="Details" asp-route-id=@p.Id>Xem chi tiết</a></li> <!--Nút xem chi tiết sản phẩm-->
+                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">@p.Brands.Name</div>
+                                    <a href="#">
+                                        <h5>@p.Name</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        @p.Price đ
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="product-large set-bg m-large" data-setbg="img/products/man-large.jpg">
+                    <h2>Hàng mới về</h2>
+                    <a href="#">Khám phá ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Hàng mới về Section End -->

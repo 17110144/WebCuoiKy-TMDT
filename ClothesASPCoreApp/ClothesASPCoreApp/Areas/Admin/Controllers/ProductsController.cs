@@ -31,17 +31,19 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             _hostingEnvironment = hostingEnvironment;
             ProductsVM = new ProductsViewModel()
             {
-                Categories = _context.Categories.ToList(),
+                Brands = _context.Brands.ToList(),
                 Vendors = _context.Vendors.ToList(),
+                Categories = _context.Categories.ToList(),
+                ProductTypes = _context.ProductTypes.ToList(),
                 SpecialTags = _context.SpecialTags.ToList(),
-                Products = new Models.Products()
+                Products = new Products()
             };
 
         }
 
         public async Task<IActionResult> Index()
         {
-            var products = _context.Products.Include(m => m.Categories).Include(m => m.SpecialTags).Include(m => m.Vendors);
+            var products = _context.Products.Include(m => m.Brands).Include(m => m.Vendors).Include(m => m.Categories).Include(m => m.ProductTypes).Include(m => m.SpecialTags);
             return View(await products.ToListAsync());
         }
 
@@ -128,7 +130,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
                 if (files.Count > 0 && files[0] != null)
                 {
-                    //if user uploads a new image
                     var uploads = Path.Combine(webRootPath, SD.ProductImageFolder);
                     var extension_new = Path.GetExtension(files[0].FileName);
                     var extension_old = Path.GetExtension(productFromDb.Image);
@@ -150,12 +151,16 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 }
 
                 productFromDb.Name = ProductsVM.Products.Name;
+                productFromDb.BrandID = ProductsVM.Products.BrandID;
                 productFromDb.VendorID = ProductsVM.Products.VendorID;
                 productFromDb.Update = DateTime.Now;
                 productFromDb.Price = ProductsVM.Products.Price;
                 productFromDb.Quantity = ProductsVM.Products.Quantity;
                 productFromDb.CategoryID = ProductsVM.Products.CategoryID;
+                productFromDb.ProductTypeID = ProductsVM.Products.ProductTypeID;
                 productFromDb.SpecialTagID = ProductsVM.Products.SpecialTagID;
+                productFromDb.isPublic = ProductsVM.Products.isPublic;
+
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -173,7 +178,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ProductsVM.Products = await _context.Products.Include(m => m.SpecialTags).Include(m => m.Categories).Include(m => m.Vendors).SingleOrDefaultAsync(m => m.Id == id);
+            ProductsVM.Products = await _context.Products.Include(m => m.Brands).Include(m => m.Vendors).Include(m => m.Categories).Include(m => m.ProductTypes).Include(m => m.SpecialTags).SingleOrDefaultAsync(m => m.Id == id);
 
             if (ProductsVM.Products == null)
             {
@@ -191,7 +196,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ProductsVM.Products = await _context.Products.Include(m => m.SpecialTags).Include(m => m.Categories).Include(m => m.Vendors).SingleOrDefaultAsync(m => m.Id == id);
+            ProductsVM.Products = await _context.Products.Include(m => m.Brands).Include(m => m.Vendors).Include(m => m.Categories).Include(m => m.ProductTypes).Include(m => m.SpecialTags).SingleOrDefaultAsync(m => m.Id == id);
 
             if (ProductsVM.Products == null)
             {

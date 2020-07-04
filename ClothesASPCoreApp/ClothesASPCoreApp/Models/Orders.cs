@@ -11,26 +11,38 @@ namespace ClothesASPCoreApp.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Sales Person")]
+        [Display(Name = "Người bán")]
         public string SalesPersonId { get; set; }
 
         [ForeignKey("SalesPersonId")]
         public virtual ApplicationUser SalesPerson { get; set; }
 
+        [Display(Name = "Người mua")]
+        public int CustomerID { get; set; }
+
+        [ForeignKey("CustomerID")]
+        public virtual Customers Customers { get; set; }
+
+
+        [Display(Name = "Ngày đặt")]
         public DateTime OrderDate { get; set; }
 
         [NotMapped]
         public DateTime OrderTime { get; set; }
 
-        public string CustomerName { get; set; }
-        public string CustomerPhoneNumber { get; set; }
-        public string CustomerEmail { get; set; }
+        [Display(Name = "Địa chỉ nhận hàng")]
+        public string Address { get; set; }
 
 
+        //public string CustomerName { get; set; }
+        //public string CustomerPhoneNumber { get; set; }
+        //public string CustomerEmail { get; set; }
+
+        [Display(Name = "Trạng thái")]
         public bool isConfirmed { get; set; }
 
 
-        [Display(Name = "Total Bill")]
+        [Display(Name = "Tổng đơn hàng")]
         public double TotalBill { get; set; }
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }

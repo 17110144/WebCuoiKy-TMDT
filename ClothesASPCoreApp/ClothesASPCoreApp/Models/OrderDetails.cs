@@ -11,18 +11,26 @@ namespace ClothesASPCoreApp.Models
     {
         public int Id { get; set; }
 
+
         public int OrderId { get; set; }
 
         [ForeignKey("OrderId")]
         public virtual Orders Orders { get; set; }
 
+
+        [Display(Name = "Tên sản phẩm")]
         public int ProductId { get; set; }
 
         [ForeignKey("ProductId")]
         public virtual Products Products { get; set; }
 
         [Required]
-        [Display(Name = "Quantity")]
+        [Display(Name = "Số lượng đặt")]
         public int OrderQuantity { get; set; }
+
+
+        [Display(Name = "Tổng giá")]
+        public double OrderDetailsTotal { get; set; }
+
     }
 }

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ClothesASPCoreApp.Models.Customers>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 style="text-align:center">Danh sách khách hàng </h2>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.PhoneNumber)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.PhoneNumber)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+

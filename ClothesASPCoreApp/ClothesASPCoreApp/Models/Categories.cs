@@ -11,7 +11,7 @@ namespace ClothesASPCoreApp.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Category Name")]
+        [Display(Name = "Tên danh mục")]
         public string Name { get; set; }
     }
 }

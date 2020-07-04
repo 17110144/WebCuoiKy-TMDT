@@ -9,11 +9,20 @@ namespace ClothesASPCoreApp.Models.ViewModel
     public class ListProductViewModel
     {
         public List<Products> Products { get; set; }
+
+        //Danh sách nội dung tìm kiếm
         public SelectList Category { get; set; }
-        public SelectList Vendor { get; set; }
+        public SelectList ProductTypes { get; set; }
+        public SelectList Brands { get; set; }
         public SelectList SpecialTags { get; set; }
-        public string ProductCate { get; set; }
-        public string ProductTag { get; set; }
+
+
+        //Từ khóa tìm kiếm
+        public string productBrand { get; set; }
+        public string productCate { get; set; }
+        public string productType { get; set; }
+        public string productSTag { get; set; }
+
         public string SearchString { get; set; }
     }
 }

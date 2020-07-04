@@ -1,8 +1,10 @@
 ﻿@model ClothesASPCoreApp.Models.News
-
+@{
+    ViewData["Title"] = "Delete";
+}
 
 <br />
-<h2 class="text-info">Delete News</h2>
+<h2 class="text-info">Xóa tin</h2>
 
 <form method="post">
     <div class="p-4 border rounded row">
@@ -33,21 +35,28 @@
                 </div>
             </div>
         </div>
-        <div class="col-1">
+        <div class="form-group">
+            <div class="col-4">
+                <label asp-for="isPublic"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="isPublic" type="checkbox" class="form-control" />
+            </div>
+        </div>
 
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <img src="@Model.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
         </div>
         <br />
         <div class="form-group">
-            <input type="submit" class="btn btn-danger" value="Delete" />
-            <a asp-action="Index" class="btn btn-success">Back to List</a>
+            <input type="submit" class="btn btn-danger" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về</a>
         </div>
     </div>
 </form>
 
 @section Scripts{
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
-

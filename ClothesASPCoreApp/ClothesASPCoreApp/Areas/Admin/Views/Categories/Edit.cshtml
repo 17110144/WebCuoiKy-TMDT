@@ -4,7 +4,7 @@
 }
 
 <br />
-<h2 class="text-info">Edit Categories</h2>
+<h2 class="text-info">Chỉnh sữa danh mục</h2>
 
 <form method="post" asp-action="Edit">
     <div class="p-4 border rounded">
@@ -21,13 +21,9 @@
         </div>
         <br />
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" asp-route-id="@Model.Id" value="Update" />
-            <a asp-action="Index" class="btn btn-success">Back to List</a>
+            <input type="submit" class="btn btn-primary" asp-route-id="@Model.Id" value="Cập nhật" />
+            <a asp-action="Index" class="btn btn-success">Trở về</a>
         </div>
     </div>
 </form>
-
-@section Scripts{
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
 

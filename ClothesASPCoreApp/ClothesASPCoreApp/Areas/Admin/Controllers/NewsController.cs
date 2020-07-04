@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class NewsController : Controller
     {
@@ -33,7 +34,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
         //Thêm ràng buộc phân quyền cho SuperAdmin và Admin, chỉ có 2 người dùng này mới được thêm xóa sửa các nội dung tin tức của Web    
         //GET Create Action Method
-        [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
         public IActionResult Create()
         {
             return View();
@@ -41,7 +41,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         //POST Create action Method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
         public async Task<IActionResult> Create(News News)
         {
             if (!ModelState.IsValid)
@@ -85,7 +84,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
 
         //GET : Edit
-        [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -106,7 +104,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         //Post : Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
         public async Task<IActionResult> Edit(int id, News news)
         {
             if (ModelState.IsValid)
@@ -169,7 +166,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         }
 
         //GET : Delete
-        [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -189,7 +185,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         //POST : Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = SD.AdminEndUser + "," + SD.SuperAdminEndUser)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             string webRootPath = _iWebHostEnvironment.WebRootPath;

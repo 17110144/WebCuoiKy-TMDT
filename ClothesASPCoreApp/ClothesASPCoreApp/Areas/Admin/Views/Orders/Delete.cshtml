@@ -16,18 +16,26 @@
         <div class="col-6">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Orders.CustomerName"></label>
+                    <label asp-for="Orders.Customers.Name"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Orders.CustomerName" readonly class="form-control" />
+                    <input asp-for="Orders.Customers.Name" readonly class="form-control" />
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Orders.CustomerEmail"></label>
+                    <label asp-for="Orders.Customers.Email"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Orders.CustomerEmail" readonly class="form-control" />
+                    <input asp-for="Orders.Customers.Email" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Orders.Customers.PhoneNumber"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Orders.Customers.PhoneNumber" readonly class="form-control" />
                 </div>
             </div>
             <div class="form-group row">
@@ -44,14 +52,6 @@
                 </div>
                 <div class="col-8">
                     <input asp-for="Orders.OrderTime" readonly id="timepicker" type="text" class="timepicker form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Orders.CustomerPhoneNumber"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Orders.CustomerPhoneNumber" readonly class="form-control" />
                 </div>
             </div>
             <div class="form-group row">
@@ -92,7 +92,7 @@
         </div>
         <div class="col-6">
             @* Partial View *@
-            <partial name="~/Views/Shared/_OrderProductDetails.cshtml" model="Model.OrderDetails" />
+            <partial name="~/Views/Shared/_OrderProductDetails.cshtml" model="Model" />
         </div>
 
 
@@ -107,8 +107,8 @@
 
 
 @section Scripts{
-
-    <script>$(document).ready(function () {
+    <script>
+    $(document).ready(function () {
             var OrderTime = document.getElementById('datepicker').value;
             var splitData = "";
             if (OrderTime.indexOf(" ") > 0) {

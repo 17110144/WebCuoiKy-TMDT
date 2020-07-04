@@ -20,76 +20,98 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
         [BindProperty]
         public ShoppingCartViewModel ShoppingCartVM { get; set; }
 
+
         public ShoppingCartController(ApplicationDbContext db)
         {
-            _db = db;
+            this._db = db;
             ShoppingCartVM = new ShoppingCartViewModel()
             {
                 Products = new List<Products>()
             };
         }
-        //Get Index Shopping Cart
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            List<int> lstShoppingCart = HttpContext.Session.Get<List<int>>("ssShoppingCart");
-            if (lstShoppingCart == null)
+            List<NumberOfProducts> lstShoppingCart = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
+            if (lstShoppingCart?.Count > 0)
             {
-                return View(ShoppingCartVM);
-            }
-            if (lstShoppingCart.Count > 0)
-            {
-                foreach (int cartItem in lstShoppingCart)
+                foreach (NumberOfProducts cartItem in lstShoppingCart)
                 {
-                    Products prod = _db.Products.Include(p => p.SpecialTags).Include(p => p.Categories).Where(p => p.Id == cartItem).FirstOrDefault();
+                    Products prod = _db.Products.Include(p => p.Vendors).Include(p => p.Brands).Where(p => p.Id == cartItem.IdProduct).FirstOrDefault();
+
                     ShoppingCartVM.Products.Add(prod);
                 }
             }
             return View(ShoppingCartVM);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         public IActionResult IndexPost()
         {
-            List<int> lstCartItems = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            List<NumberOfProducts> lstCartItems = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
 
             ShoppingCartVM.Orders.OrderDate = DateTime.Now;
 
-            Orders Orders = ShoppingCartVM.Orders;
-            _db.Orders.Add(Orders);
+            Customers customer = ShoppingCartVM.Orders.Customers;
+            _db.Customers.Add(customer);
             _db.SaveChanges();
 
-            int OrderId = Orders.Id;
+            int idcustomer = customer.Id;
 
-            for (int i = 0; i < lstCartItems.Count; i++)
+            Orders orders = ShoppingCartVM.Orders;
+            orders.CustomerID = idcustomer;
+            _db.Orders.Add(orders);
+            _db.SaveChanges();
+
+            int orderId = orders.Id;
+
+            var ProductDB = _db.Products.ToList();
+
+            foreach (NumberOfProducts item in lstCartItems)
             {
-                OrderDetails OrderDetails = new OrderDetails()
+                OrderDetails orderItems = new OrderDetails()
                 {
-                    OrderId = OrderId,
-                    ProductId = lstCartItems[i],
-                    OrderQuantity = ShoppingCartVM.OrderDetails[i].OrderQuantity
+                    OrderId = orderId,
+                    ProductId = item.IdProduct,
+                    OrderQuantity = item.Quantity
                 };
-                _db.OrderDetails.Add(OrderDetails);
+                for (int i = 0; i < ProductDB.Count(); i++)
+                {
+                    if (item.IdProduct == ProductDB[i].Id)
+                    {
+                        ProductDB[i].Quantity -= item.Quantity;
+                        orderItems.OrderDetailsTotal = orderItems.OrderQuantity * ProductDB[i].Price;
+                        break;
+                    }
+                }
+                _db.SaveChanges();
+                _db.OrderDetails.Add(orderItems);
 
             }
             _db.SaveChanges();
-            lstCartItems = new List<int>();
+            lstCartItems = new List<NumberOfProducts>();
             HttpContext.Session.Set("ssShoppingCart", lstCartItems);
-
-            return RedirectToAction("OrderConfirmation", "ShoppingCart", new { Id = OrderId });
+            return RedirectToAction("OrderConfirmation", "ShoppingCart", new { Id = orderId });
 
         }
 
+
         public IActionResult Remove(int id)
         {
-            List<int> lstCartItems = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            List<NumberOfProducts> lstCartItems = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
 
-            if (lstCartItems.Count > 0)
+            if (lstCartItems.Count >= 0)
             {
-                if (lstCartItems.Contains(id))
+                foreach (NumberOfProducts item in lstCartItems)
                 {
-                    lstCartItems.Remove(id);
+                    if (item.IdProduct == id)
+                    {
+                        lstCartItems.Remove(item);
+                        break;
+                    }
                 }
+
             }
 
             HttpContext.Session.Set("ssShoppingCart", lstCartItems);
@@ -98,43 +120,27 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
         }
 
 
-        //Quản lý số lượng đơn đặt hàng và Số lượng hàng trong kho
-        //Khi khách nhấn vào đặt hàng thì kho hàng sẽ trừ số lượng sản phẩm tương ứng
-        //các View để đưa ra thông tin chi tiết về sản phẩm cụ thể là view _OrderProductDetails view này sẽ đưa ra thông tin số lượng của từng sảm phẩm đã đặt
+
         //Get
         public IActionResult OrderConfirmation(int id)
         {
+            Orders orders = _db.Orders.Where(a => a.Id == id).FirstOrDefault();
+            orders.Customers = _db.Customers.Where(a => a.Id == orders.CustomerID).FirstOrDefault();
 
-            ShoppingCartVM.Orders = _db.Orders.Where(a => a.Id == id).FirstOrDefault();
-            var orderDetailsList = (IEnumerable<OrderDetails>)(from od in _db.OrderDetails
-                                                               join o in _db.Orders
-                                                               on od.OrderId equals o.Id
-                                                               where o.Id == id
-                                                               select od).Include("Products");
-            var ordersFormDb = _db.Orders.Where(a => a.Id == id).FirstOrDefault();
-            ordersFormDb.TotalBill = 0;
-            foreach (var item in orderDetailsList)
+            List<OrderDetails> orderDetails = _db.OrderDetails.Where(p => p.OrderId == id).ToList();
+            List<Products> products = new List<Products>();
+            foreach (OrderDetails o in orderDetails)
             {
-                ordersFormDb.TotalBill += item.Products.Price * item.OrderQuantity;
+                products.Add(_db.Products.Include(p => p.Vendors).Include(p => p.Brands).Where(p => p.Id == o.ProductId).FirstOrDefault());
             }
-            ShoppingCartVM.OrderDetails = orderDetailsList.ToList();
 
-            /*-TH2--------------------Trừ số lượng hàng khi khách đặt hàng-------------------------*/
-            var productsList = _db.Products.ToList();
-            foreach (var item in orderDetailsList)
+            OrderDetailsViewModel orderItemsVM = new OrderDetailsViewModel()
             {
-                for (int j = 0; j < productsList.Count; j++)
-                {
-                    if (item.ProductId == productsList[j].Id)
-                    {
-                        productsList[j].Quantity -= item.OrderQuantity;
-                    }
-                }
-            }
-            /*--------------------------------------------------------------------------------*/
+                Orders = orders,
+                Products = products
+            };
 
-            _db.SaveChanges();
-            return View(ShoppingCartVM);
+            return View(orderItemsVM);
         }
     }
 }

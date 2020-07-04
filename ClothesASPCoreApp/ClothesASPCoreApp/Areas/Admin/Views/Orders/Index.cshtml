@@ -5,7 +5,7 @@
 }
 <form method="get">
     <br /><br />
-    <h2 class="text-info">Orders List</h2>
+    <h2 class="text-info">Danh sách đơn đặt hàng</h2>
     <br />
 
     <div style="height:150px; background-color:aliceblue" class="container">
@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="row" style="padding-top:10px;">
                 <div class="col-2">
-                    Customer Name
+                    Tên khách hàng
                 </div>
                 <div class="col-3">
                     @Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control" } })
@@ -31,7 +31,7 @@
             </div>
             <div class="row" style="padding-top:10px;">
                 <div class="col-2">
-                    Phone Number
+                    Số điện thoại
                 </div>
                 <div class="col-3">
                     @Html.Editor("searchPhone", new { htmlAttributes = new { @class = "form-control" } })
@@ -40,7 +40,7 @@
 
                 </div>
                 <div class="col-2">
-                    Order Date
+                    Ngày đặt
                 </div>
                 <div class="col-3">
                     @Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control", @id = "datepicker" } })
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-3">
                     <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
-                        <i class="fas fa-search"></i> Search
+                        <i class="fas fa-search"></i> Tìm
                     </button>
                 </div>
 
@@ -72,24 +72,25 @@
         <table class="table table-striped border">
             <tr class="table-info">
                 <th>
-                    @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().SalesPerson.Name)
+                    Nhân viên bán
                 </th>
                 <th>
-                    @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().OrderDate)
+                    Ngày đặt
                 </th>
                 <th>
-                    @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().CustomerName)
+                    Tên khách hàng
                 </th>
                 <th>
-                    @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().CustomerPhoneNumber)
+                    Số điện thoại
                 </th>
                 <th>
-                    @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().CustomerEmail)
+                    Email
                 </th>
                 <th>
-                    @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().isConfirmed)
+                    Địa chỉ nhận hàng
                 </th>
                 <th>
+                    Trạng thái
                 </th>
                 <th></th>
             </tr>
@@ -104,13 +105,16 @@
                         @Html.DisplayFor(m => item.OrderDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.CustomerName)
+                        @Html.DisplayFor(m => item.Customers.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.CustomerPhoneNumber)
+                        @Html.DisplayFor(m => item.Customers.PhoneNumber)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.CustomerEmail)
+                        @Html.DisplayFor(m => item.Customers.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Address)
                     </td>
                     <td>
                         @Html.DisplayFor(m => item.isConfirmed)
@@ -119,7 +123,6 @@
                         <partial name="_TableButtonPartial" model="item.Id" />
                     </td>
                 </tr>
-
             }
         </table>
     </div>

@@ -34,7 +34,7 @@ using ClothesASPCoreApp.Utility;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a332e402f7cd2d8c7ab5692a4c84058866d5c0a9", @"/Areas/Customer/Views/Feedbacks/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f050e3cc29bf2e0fc5021ee13256f423836cbe7b", @"/Areas/Customer/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f49485cff35c6cbd766243d717c1a31f6be7e2ec", @"/Areas/Customer/Views/_ViewImports.cshtml")]
     public class Areas_Customer_Views_Feedbacks_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<ClothesASPCoreApp.Models.Feedbacks>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);

@@ -10,6 +10,7 @@ namespace ClothesASPCoreApp.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "Tên nhãn đặc biệt")]
         [Required]
         public string Name { get; set; }
     }
