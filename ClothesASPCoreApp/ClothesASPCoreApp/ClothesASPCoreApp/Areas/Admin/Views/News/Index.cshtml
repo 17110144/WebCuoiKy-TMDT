@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ClothesASPCoreApp.Models.News>
+@using ClothesASPCoreApp.Extensions
+@using ClothesASPCoreApp.Utility
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Danh sách tin</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm tin mới </a>
+    </div>
+</div>
+
+
+<br />
+<br />
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.isPublic)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Title)
+                </td>
+                <th>
+                    @Html.DisplayFor(m => item.Content)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => item.Date)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => item.isPublic)
+                </th>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>

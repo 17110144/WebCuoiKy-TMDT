@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div style="text-align:right">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="font-size:13px">@await Component.InvokeAsync("UserName")</a>
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button class="nav-link btn btn-link text-dark">Đăng xuất</button>
+        </form>
+    }
+    else
+    {
+        <a style="font-size:13px" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Đăng ký</a>
+        <a style="font-size:13px" class="nav-link " asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
+    }
+
+</div>

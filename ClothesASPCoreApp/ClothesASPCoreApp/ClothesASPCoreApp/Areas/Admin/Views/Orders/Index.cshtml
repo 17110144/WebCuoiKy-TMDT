@@ -1,0 +1,141 @@
+﻿@model ClothesASPCoreApp.Models.ViewModel.OrdersViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<form method="get">
+    <br /><br />
+    <h2 class="text-info">Danh sách đơn đặt hàng</h2>
+    <br />
+
+    <div style="height:150px; background-color:aliceblue" class="container">
+        @* The search criteria *@
+        <div class="col-12">
+            <div class="row" style="padding-top:10px;">
+                <div class="col-2">
+                    Tên khách hàng
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-2">
+                    Email
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchEmail", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+            </div>
+            <div class="row" style="padding-top:10px;">
+                <div class="col-2">
+                    Số điện thoại
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchPhone", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-2">
+                    Ngày đặt
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control", @id = "datepicker" } })
+                </div>
+
+            </div>
+            <div class="row" style="padding-top:10px;">
+                <div class="col-2">
+                </div>
+                <div class="col-3">
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-3">
+                    <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                        <i class="fas fa-search"></i> Tìm
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    Nhân viên bán
+                </th>
+                <th>
+                    Ngày đặt
+                </th>
+                <th>
+                    Tên khách hàng
+                </th>
+                <th>
+                    Số điện thoại
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Địa chỉ nhận hàng
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.SalesPerson.Name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(m => item.OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Customers.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Customers.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Customers.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.isConfirmed)
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="item.Id" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn border" page-class-normal="btn btn-default active"
+         page-class-selected="btn btn-primary active" class="btn-group m-1">
+    </div>
+</form>
+
+@section Scripts{
+    <script>$(function () {
+            $("#datepicker").datepicker({
+                minDate: +1, maxDate: "+3M"
+            });
+        });</script>
+}

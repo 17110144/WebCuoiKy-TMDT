@@ -1,0 +1,51 @@
+﻿@model ClothesASPCoreApp.Models.Vendors
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<h2 class="text-info">Thông tin chi tiết nhà cung cấp sản phẩm</h2>
+
+<div class="p-4 border rounded">
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Name"></label>
+        </div>
+        <div class="col-8">
+            <input asp-for="Name" disabled class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Address"></label>
+        </div>
+        <div class="col-8">
+            <input asp-for="Address" disabled class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="PhoneNumber"></label>
+        </div>
+        <div class="col-8">
+            <input asp-for="PhoneNumber" disabled class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Description"></label>
+        </div>
+        <div class="col-8">
+            <input asp-for="Description" disabled class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Cập nhật</a>
+        <a asp-action="Index" class="btn btn-success">Trở về</a>
+    </div>
+</div>
+
+
