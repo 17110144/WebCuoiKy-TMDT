@@ -86,22 +86,22 @@ namespace ClothesASPCoreApp.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    //var user = await _userManager.FindByEmailAsync(Input.Email);
-                    //// Get the roles for the user
-                    //var roles = await _userManager.GetRolesAsync(user);
-                    //var includesrole = roles.Contains("Super Admin");
-                    //if (includesrole)
-                    //{
-                    //    _logger.LogInformation("User logged in.");
-                    //    return RedirectToAction("Index", "AdminUsers", new { area = "Admin" });
-                    //}
-                    //else
-                    //{
-                    //    _logger.LogInformation("User logged in.");
-                    //    return LocalRedirect(returnUrl);
-                    //}
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    // Get the roles for the user
+                    var roles = await _userManager.GetRolesAsync(user);
+                    if (roles.Contains("Super Admin"))
+                    {
+                        return Redirect("https://localhost:44305/Admin/AdminSite");
+                    }
+                    else if (roles.Contains("Admin"))
+                    {
+                        return Redirect("https://localhost:44305/Admin/Orders");
+                    }
+                    else
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {

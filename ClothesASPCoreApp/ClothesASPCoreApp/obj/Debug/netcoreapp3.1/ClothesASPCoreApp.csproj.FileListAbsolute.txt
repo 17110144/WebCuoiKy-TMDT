@@ -638,3 +638,4 @@ D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCor
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Delete.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Edit.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Index.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\AccountController1\Confirm.cshtml.g.cs
