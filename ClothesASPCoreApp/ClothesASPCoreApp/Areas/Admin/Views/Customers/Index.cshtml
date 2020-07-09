@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ClothesASPCoreApp.Models.Customers>
+﻿@model IEnumerable<ClothesASPCoreApp.Models.ApplicationUser>
 @{
     ViewData["Title"] = "Index";
 }
@@ -22,15 +22,19 @@
                 @Html.DisplayNameFor(m => m.DOB)
             </th>
             <th>
+                @Html.DisplayNameFor(m => m.Address)
+            </th>
+            <th>
                 @Html.DisplayNameFor(m => m.Email)
             </th>
             <th>
                 @Html.DisplayNameFor(m => m.PhoneNumber)
             </th>
-            <th></th>
+            <th>
+                Khóa tài khoản
+            </th>
             <th></th>
         </tr>
-
         @foreach (var item in Model)
         {
             <tr>
@@ -41,13 +45,30 @@
                     @Html.DisplayFor(m => item.DOB)
                 </td>
                 <td>
+                    @Html.DisplayFor(m => item.Address)
+                </td>
+                <td>
                     @Html.DisplayFor(m => item.Email)
                 </td>
                 <td>
                     @Html.DisplayFor(m => item.PhoneNumber)
                 </td>
                 <td>
-                    <partial name="_TableButtonPartial" model="item.Id" />
+                    @if (item.LockoutEnd != null && item.LockoutEnd > DateTime.Now)
+                    {
+                        <label>Đã bị khóa</label>
+                    }
+                </td>
+                <td>
+                    @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
+                    {
+                        <a type="button" class="btn btn-primary" href="@Url.Action("Edit/" + item.Id).Replace("%2F","/")">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a type="button" class="btn btn-danger" href="@Url.Action("Delete/"+item.Id).Replace("%2F","/")">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    }
                 </td>
             </tr>
         }

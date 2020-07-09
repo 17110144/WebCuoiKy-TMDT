@@ -53,14 +53,14 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
 
             ShoppingCartVM.Orders.OrderDate = DateTime.Now;
 
-            Customers customer = ShoppingCartVM.Orders.Customers;
-            _db.Customers.Add(customer);
+            ApplicationUser customer = ShoppingCartVM.Orders.Customers;
+            _db.ApplicationUser.Add(customer);
             _db.SaveChanges();
 
-            int idcustomer = customer.Id;
+            string idcustomer = customer.Id;
 
             Orders orders = ShoppingCartVM.Orders;
-            orders.CustomerID = idcustomer;
+            orders.CustomerId = idcustomer;
             _db.Orders.Add(orders);
             _db.SaveChanges();
 
@@ -125,7 +125,7 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
         public IActionResult OrderConfirmation(int id)
         {
             Orders orders = _db.Orders.Where(a => a.Id == id).FirstOrDefault();
-            orders.Customers = _db.Customers.Where(a => a.Id == orders.CustomerID).FirstOrDefault();
+            orders.Customers = _db.ApplicationUser.Where(a => a.Id == orders.CustomerId).FirstOrDefault();
 
             List<OrderDetails> orderDetails = _db.OrderDetails.Where(p => p.OrderId == id).ToList();
             List<Products> products = new List<Products>();

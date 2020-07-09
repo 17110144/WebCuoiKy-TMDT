@@ -51,30 +51,6 @@ namespace ClothesASPCoreApp.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ClothesASPCoreApp.Models.Customers", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DOB")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("ClothesASPCoreApp.Models.Feedbacks", b =>
                 {
                     b.Property<int>("Id")
@@ -190,8 +166,8 @@ namespace ClothesASPCoreApp.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -207,7 +183,7 @@ namespace ClothesASPCoreApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerID");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("SalesPersonId");
 
@@ -538,7 +514,16 @@ namespace ClothesASPCoreApp.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DOB")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
@@ -570,11 +555,9 @@ namespace ClothesASPCoreApp.Migrations
 
             modelBuilder.Entity("ClothesASPCoreApp.Models.Orders", b =>
                 {
-                    b.HasOne("ClothesASPCoreApp.Models.Customers", "Customers")
+                    b.HasOne("ClothesASPCoreApp.Models.ApplicationUser", "Customers")
                         .WithMany()
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("ClothesASPCoreApp.Models.ApplicationUser", "SalesPerson")
                         .WithMany()

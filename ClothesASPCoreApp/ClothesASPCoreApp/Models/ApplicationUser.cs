@@ -10,9 +10,16 @@ namespace ClothesASPCoreApp.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Display(Name = "Tên nhân viên")]
+        [Display(Name = "Tên")]
         public string Name { get; set; }
-        [NotMapped]
-        public bool IsSuperAdmin { get; set; }
+
+        [Display(Name = "Địa chỉ")]
+        public string Address { get; set; }
+
+        [Display(Name = "Ngày sinh")]
+        public string DOB { get; set; }
+
+        public string Role { get; set; }
+
     }
 }

@@ -40,7 +40,7 @@ namespace ClothesASPCoreApp.Data
             {
                 UserName = "admin@mail.com",
                 Email = "admin@mail.com",
-                Name = "DinhHoang",
+                Name = "Hoang",
                 PhoneNumber = "0973465515",
                 EmailConfirmed = true
             }, "@Admin123").GetAwaiter().GetResult();

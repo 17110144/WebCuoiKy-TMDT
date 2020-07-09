@@ -26,7 +26,5 @@ namespace ClothesASPCoreApp.Data
         public DbSet<Brands> Brands { get; set; }
         public DbSet<ImportProductDetails> ImportProductDetails { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<Customers> Customers { get; set; }
-
     }
 }

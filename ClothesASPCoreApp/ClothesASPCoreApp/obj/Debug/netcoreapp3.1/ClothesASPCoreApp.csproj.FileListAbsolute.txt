@@ -574,10 +574,6 @@ D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCor
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\ClothesASPCoreApp.csproj.CoreCompileInputs.cache
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\ClothesASPCoreApp.MvcApplicationPartsAssemblyInfo.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\ClothesASPCoreApp.MvcApplicationPartsAssemblyInfo.cache
-D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Delete.cshtml.g.cs
-D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Details.cshtml.g.cs
-D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Edit.cshtml.g.cs
-D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Index.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\AccessDenied.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ConfirmEmail.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ConfirmEmailChange.cshtml.g.cs
@@ -620,9 +616,6 @@ D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCor
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AdminSite\Index.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminSite.cshtml.g.cs
-D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AdminUsers\Delete.cshtml.g.cs
-D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AdminUsers\Edit.cshtml.g.cs
-D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AdminUsers\Index.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Brands\Create.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Brands\Delete.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Brands\Details.cshtml.g.cs
@@ -639,3 +632,9 @@ D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCor
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Shopping\Index.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Shopping\Details.cshtml.g.cs
 D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutIdentity.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AdminUsers\Delete.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AdminUsers\Edit.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AdminUsers\Index.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Delete.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Edit.cshtml.g.cs
+D:\HCMUTE\HK6\TMDT\#CuoiKy\master\WebCuoiKy-TMDT\ClothesASPCoreApp\ClothesASPCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customers\Index.cshtml.g.cs

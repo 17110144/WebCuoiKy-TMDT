@@ -21,88 +21,77 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View(_db.Customers.ToList());
+            return View(_db.ApplicationUser.Where(m => m.Role == SD.Customer).ToList());
         }
 
         //GET Edit Action Method
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
+            if (id == null || id.Trim().Length == 0)
             {
                 return NotFound();
             }
 
-            var customer = await _db.Customers.FindAsync(id);
-            if (customer == null)
+            var userFromDb = await _db.ApplicationUser.FindAsync(id);
+            if (userFromDb == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(userFromDb);
         }
 
-        //POST Edit action Method
+        //Post Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customers customers)
+        public IActionResult Edit(string id, ApplicationUser applicationUser)
         {
-            if (id != customers.Id)
+            if (id != applicationUser.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _db.Update(customers);
-                await _db.SaveChangesAsync();
+                ApplicationUser userFromDb = _db.ApplicationUser.Where(u => u.Id == id).FirstOrDefault();
+                userFromDb.Name = applicationUser.Name;
+                userFromDb.PhoneNumber = applicationUser.PhoneNumber;
+
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customers);
+
+            return View(applicationUser);
         }
 
-        //GET Details Action Method
-        public async Task<IActionResult> Details(int? id)
+
+        //Get Delete
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            if (id == null || id.Trim().Length == 0)
             {
                 return NotFound();
             }
 
-            var customer = await _db.Customers.FindAsync(id);
-            if (customer == null)
+            var userFromDb = await _db.ApplicationUser.FindAsync(id);
+            if (userFromDb == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(userFromDb);
         }
 
 
-        //GET Delete Action Method
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _db.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
-        }
-
-        //POST Delete action Method
+        //Post Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeletePOST(string id)
         {
-            var customer = await _db.Customers.FindAsync(id);
-            _db.Customers.Remove(customer);
-            await _db.SaveChangesAsync();
+            ApplicationUser userFromDb = _db.ApplicationUser.Where(u => u.Id == id).FirstOrDefault();
+            userFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
+
+            _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
     }

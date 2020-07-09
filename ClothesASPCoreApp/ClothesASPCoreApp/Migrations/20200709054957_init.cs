@@ -41,7 +41,10 @@ namespace ClothesASPCoreApp.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    DOB = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,23 +75,6 @@ namespace ClothesASPCoreApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    DOB = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -280,8 +266,9 @@ namespace ClothesASPCoreApp.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SalesPersonId = table.Column<string>(nullable: true),
-                    CustomerID = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<string>(nullable: true),
                     OrderDate = table.Column<DateTime>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     isConfirmed = table.Column<bool>(nullable: false),
                     TotalBill = table.Column<double>(nullable: false)
                 },
@@ -289,11 +276,11 @@ namespace ClothesASPCoreApp.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerID",
-                        column: x => x.CustomerID,
-                        principalTable: "Customers",
+                        name: "FK_Orders_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_SalesPersonId",
                         column: x => x.SalesPersonId,
@@ -318,6 +305,7 @@ namespace ClothesASPCoreApp.Migrations
                     CategoryID = table.Column<int>(nullable: false),
                     ProductTypeID = table.Column<int>(nullable: false),
                     SpecialTagID = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     isPublic = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -459,9 +447,9 @@ namespace ClothesASPCoreApp.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_CustomerID",
+                name: "IX_Orders_CustomerId",
                 table: "Orders",
-                column: "CustomerID");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_SalesPersonId",
@@ -531,9 +519,6 @@ namespace ClothesASPCoreApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

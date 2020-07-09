@@ -89,7 +89,7 @@ namespace ClothesASPCoreApp.Areas.Identity.Pages.Account
                     //var user = await _userManager.FindByEmailAsync(Input.Email);
                     //// Get the roles for the user
                     //var roles = await _userManager.GetRolesAsync(user);
-                    //var includesrole = roles.Contains("Super Admin"); 
+                    //var includesrole = roles.Contains("Super Admin");
                     //if (includesrole)
                     //{
                     //    _logger.LogInformation("User logged in.");

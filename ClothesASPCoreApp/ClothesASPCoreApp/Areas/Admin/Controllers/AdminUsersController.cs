@@ -24,7 +24,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View(_db.ApplicationUser.ToList());
+            return View(_db.ApplicationUser.Where(m => m.Role == SD.AdminEndUser).ToList());
         }
 
         //Get Edit

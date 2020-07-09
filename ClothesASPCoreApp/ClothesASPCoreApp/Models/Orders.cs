@@ -18,10 +18,10 @@ namespace ClothesASPCoreApp.Models
         public virtual ApplicationUser SalesPerson { get; set; }
 
         [Display(Name = "Người mua")]
-        public int CustomerID { get; set; }
+        public string CustomerId { get; set; }
 
-        [ForeignKey("CustomerID")]
-        public virtual Customers Customers { get; set; }
+        [ForeignKey("CustomerId")]
+        public virtual ApplicationUser Customers { get; set; }
 
 
         [Display(Name = "Ngày đặt")]
@@ -33,10 +33,6 @@ namespace ClothesASPCoreApp.Models
         [Display(Name = "Địa chỉ nhận hàng")]
         public string Address { get; set; }
 
-
-        //public string CustomerName { get; set; }
-        //public string CustomerPhoneNumber { get; set; }
-        //public string CustomerEmail { get; set; }
 
         [Display(Name = "Trạng thái")]
         public bool isConfirmed { get; set; }

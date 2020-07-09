@@ -236,7 +236,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _db.Orders.FindAsync(id);
-            var customer = await _db.Customers.FindAsync(order.CustomerID);
+            var customer = await _db.ApplicationUser.FindAsync(order.CustomerId);
             var tableOrderDetail = _db.OrderDetails.ToList();
             var tableProduct = _db.Products.ToList();
             foreach (var item in tableOrderDetail)
@@ -257,7 +257,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                     _db.OrderDetails.Remove(orderdetail);
                 }
             }
-            _db.Customers.Remove(customer);
+            _db.ApplicationUser.Remove(customer);
             _db.Orders.Remove(order);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

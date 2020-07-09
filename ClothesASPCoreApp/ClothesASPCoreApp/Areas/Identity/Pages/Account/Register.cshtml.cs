@@ -112,8 +112,8 @@ namespace ClothesASPCoreApp.Areas.Identity.Pages.Account
                             await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
                         }
                         _logger.LogInformation("User created a new account with password.");
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                         return RedirectToAction("Index", "AdminUsers", new { area = "Admin" });
                     }
                     else
@@ -123,10 +123,9 @@ namespace ClothesASPCoreApp.Areas.Identity.Pages.Account
                             await _roleManager.CreateAsync(new IdentityRole(SD.Customer));
                         }
                         await _userManager.AddToRoleAsync(user, SD.Customer);
-
                         _logger.LogInformation("User created a new account with password.");
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                         return RedirectToAction("Index", "Home", new { area = "Customer" });
                     }
 
