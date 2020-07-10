@@ -1,0 +1,60 @@
+﻿@page
+@model RegisterModel
+@using ClothesASPCoreApp.Utility
+
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+
+<div class="register-login-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="register-form">
+                    <h2>@ViewData["Title"]</h2>
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="All"></div>
+                        <div class="form-group">
+                            <label for="Input.Name">Tên *</label>
+                            <input asp-for="Input.Name" class="form-control" />
+                            <span asp-validation-for="Input.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Input.Email">Email *</label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Input.PhoneNumber">Số điện thoại</label>
+                            <input asp-for="Input.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Input.Password">Mật khẩu *</label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Input.ConfirmPassword">Nhập lại mật khẩu *</label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        @if (User.IsInRole(SD.SuperAdminEndUser))
+                        {
+                            <div class="form-group">
+                                <label asp-for="Input.IsSuperAdmin"></label>
+                                <input asp-for="Input.IsSuperAdmin" type="checkbox" class="form-control" />
+                            </div>
+                        }
+                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,202 @@
+﻿@model ClothesASPCoreApp.Models.ViewModel.ShoppingCartViewModel
+@using Microsoft.AspNetCore.Http;
+@using ClothesASPCoreApp.Extensions;
+@using ClothesASPCoreApp.Utility;
+@using ClothesASPCoreApp.Models.ViewModel;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<form method="post">
+    <div class="container">
+        <br /><br />
+        <h2 style="text-align:center">Thông tin giỏ hàng</h2>
+        <br />
+        @{
+            double tong = 0;
+        }
+        @if (Model.Products.Count > 0)
+        {
+
+            <div class="container border border-secondary rounded" style="padding-top:25px;">
+                <div class="row">
+                    <div class="col-12 col-md-9">
+                        <table class="table table-striped">
+                            <tr class="table-info">
+                                <th style="text-align:center; width:20%"></th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.Products.FirstOrDefault().Name"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.Products.FirstOrDefault().Price"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.Products.FirstOrDefault().Brands.Name"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label>Amount</label>
+                                </th>
+                                <th style="text-align:center;"></th>
+                            </tr>
+                            @foreach (var item in Model.Products)
+                            {
+                                <tr style="padding:50px;">
+                                    <td>
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                            <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                                        </a>
+                                    </td>
+                                    <td style="text-align:center">
+                                        @Html.DisplayFor(c => item.Name)
+                                    </td>
+                                    <td style="text-align:center">
+                                        @Html.DisplayFor(c => item.Price)
+                                    </td>
+                                    <td style="text-align:center">
+                                        @Html.DisplayFor(c => item.Brands.Name)
+                                    </td>
+                                    <td style="text-align:left">
+                                        @{
+                                            List<NumberOfProducts> cart = HttpContextAccessor.HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
+                                            if (cart != null)
+                                            {
+                                                @foreach (NumberOfProducts product in cart)
+                                                {
+                                                    @if (product.IdProduct == item.Id)
+                                                    {
+                                                        @Html.DisplayFor(i => product.Quantity)
+                                                        tong = tong + item.Price * product.Quantity;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    </td>
+                                    <td style="text-align:center">
+                                        <button type="submit" class="btn btn-danger form-control" asp-action="remove" asp-route-id="@item.Id">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    <div class="col-12 col-md-3" style="padding-top:20px">
+                        <div style="border-bottom:1px solid black;"> <b>Tạm tính</b> <span style="padding-left:140px;text-align:right;">@tong $</span> </div>
+                        <br />
+                        <div> <b>Thanh tiền</b> <span style="padding-left:110px;color:red;font-size:22px">@tong $ </span></div>
+
+
+                        <div style="text-align:right">(Đã bao gồm VAT nếu có)</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="container">
+        <br /><br />
+        <h2 style="text-align:center">Thông tin đặt hàng</h2>
+        <br />
+        @if (Model.Products.Count > 0)
+        {
+            <div class="container" style="padding:15px;">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-12">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.Customers.Name" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Phone Number </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.Customers.PhoneNumber" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Email  </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.Customers.Email" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Birth Day  </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.Customers.DOB" value="" type="text" id="datepickerdate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-12">
+                            <label>Adress</label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.Address" value="" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Appointment Date </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input value="@DateTime.Now.Date" type="text" id="datepicker" class="form-control" readonly />
+                        </div>
+                        <div class="col-12">
+                            <label>Order Time</label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input value="@DateTime.Now.TimeOfDay" type="text" class="timepicker form-control" readonly />
+                        </div>
+                        <div class="col-12">
+                            <label>TongTien</label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input value="@tong" type="text" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-12" style="text-align:right;padding-right:30px">
+                        <button type="submit" id="btnPlaceOrder" class="btn btn-success" style="height:50px;width:200px">Đặt hàng</button>
+                    </div>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>No items added to the shopping cart...</div>
+        }
+    </div>
+
+</form>
+<div style="margin:200px"></div>
+
+@section Scripts{
+    <script>
+        $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: '10',
+            maxTime: '3:00pm',
+            startTime: '10:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: +1, maxDate: "+3M"
+            });
+        });
+        $(function () {
+            $("#datepickerdate").datepicker({
+            });
+        });
+    </script>
+}
+
+
+
