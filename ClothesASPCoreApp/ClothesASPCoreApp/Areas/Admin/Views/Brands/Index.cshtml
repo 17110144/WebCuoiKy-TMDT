@@ -22,6 +22,9 @@
             <th>
                 @Html.DisplayNameFor(m => m.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(m => m.isPublic)
+            </th>
             <th></th>
             <th></th>
         </tr>
@@ -32,6 +35,9 @@
                 <td>
                     @Html.DisplayFor(m => item.Name)
                 </td>
+                <th>
+                    @Html.DisplayFor(m => item.isPublic)
+                </th>
                 <td>
                     <partial name="_TableButtonPartial" model="item.Id" />&nbsp;
                 </td>

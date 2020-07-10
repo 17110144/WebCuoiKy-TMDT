@@ -137,6 +137,8 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 newsFromDb.Title = news.Title;
                 newsFromDb.Content = news.Content;
                 newsFromDb.Date = news.Date;
+                newsFromDb.Sale = news.Sale;
+                newsFromDb.isPublic = news.isPublic;
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));

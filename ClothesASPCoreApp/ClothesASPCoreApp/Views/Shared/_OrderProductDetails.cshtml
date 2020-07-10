@@ -1,48 +1,60 @@
 ﻿@model List<ClothesASPCoreApp.Models.OrderDetails>
+@{ 
+    double TotalBill = 0;
+}
 @if (Model.Count > 0)
 {
-    <table class="table table-striped" width="100%">
-        <tr class="table-info">
-            <th style="text-align:center; width:20%"></th>
-            <th style="text-align:center;">
-                <label asp-for="@Model.FirstOrDefault().Products.Name"></label>
-            </th>
-            <th style="text-align:center;">
-                <label asp-for="@Model.FirstOrDefault().OrderQuantity"></label>
-            </th>
-            <th style="text-align:center;">
-                <label asp-for="@Model.FirstOrDefault().Products.Price"></label>
-            </th>
-            <th style="text-align:center;">
-                <label>Total</label>
-            </th>
-        </tr>
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>SL đặt</th>
+                                    <th>Tổng giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    double total = item.OrderQuantity * item.Products.Price;
+                                    TotalBill += total;
+                                    <tr>
+                                        <td class="cart-pic first-row"><img src="@item.Products.Image" width="50%" alt=""></td>
+                                        <td class="cart-title first-row">@item.Products.Name</td>
+                                        <td class="p-price first-row">@item.Products.Price VNĐ</td>
+                                        <td class="qua-col first-row">
+                                            <div class="quantity">
+                                                @item.OrderQuantity
+                                            </div>
+                                        </td>
+                                        <td class="total-price">@total</td>
 
-        @foreach (var item in Model)
-        {
-            double total = item.OrderQuantity * item.Products.Price;
-            <tr style="padding:50px;">
-                <td>
-                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ProductId">
-                        <img src="@item.Products.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
-                    </a>
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(c => item.Products.Name)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(c => item.OrderQuantity)
-                </td>
-                <td style="text-align:center">
-                    @String.Format("{0:c}", item.Products.Price)
-                </td>
-                <th style="text-align:center;">
-                    @String.Format("{0:c}", total)
-                </th>
-            </tr>
-        }
-
-    </table>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-4 offset-lg-4">
+                            <div class="proceed-checkout">
+                                <ul>
+                                    <li class="cart-total">Tổng đơn hàng: <span>@TotalBill VNĐ</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 }
 else
 {

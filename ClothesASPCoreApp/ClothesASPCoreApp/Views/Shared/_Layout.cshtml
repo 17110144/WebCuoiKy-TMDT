@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using ClothesASPCoreApp.Extensions
-@using ClothesASPCoreApp.Utility
-@using ClothesASPCoreApp.Models.ViewModel
+@using ClothesASPCoreApp.Data;
+@inject ApplicationDbContext _db
 @inject IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +36,7 @@
                 <div class="ht-left">
                     <div class="mail-service">
                         <i class=" fa fa-envelope"></i>
-                        darkblueshop@gmail.com
+                        darkyellowshop@gmail.com
                     </div>
                     <div class="phone-service">
                         <i class=" fa fa-phone"></i>
@@ -115,9 +115,13 @@
                         <i class="ti-menu"></i>
                         <span>Chúng tôi có</span>
                         <ul class="depart-hover">
-                            <li><a href="#">Áo</a></li>
-                            <li><a href="#">Quần</a></li>
-                            <li><a href="#">Đồ âu</a></li>
+                            @{
+                                List<Categories> lscate = new List<Categories>(_db.Categories);
+                            }
+                            @foreach (var c in lscate)
+                            {
+                                <li><a href="#">@c.Name</a></li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -125,14 +129,13 @@
                     <ul>
                         <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                         <li><a asp-area="Customer" asp-controller="Shopping" asp-action="Index">Shop</a></li>
-                        <li><a href="#">Liên hệ với chúng tôi</a></li>
+                        <li><a asp-area="Customer" asp-controller="Feedbacks" asp-action="Create">Liên hệ với chúng tôi</a></li>
                         <li>
                             <a href="#">Mục khác</a>
                             <ul class="dropdown">
-                                <li><a href="#">Giỏ hàng</a></li>
-                                <li><a href="#">Đặt hàng</a></li>
                                 <li><a href="#">Đăng ký</a></li>
                                 <li><a href="#">Đăng nhập</a></li>
+                                <li><a asp-area="Customer" asp-controller="CustomerOders" asp-action="Index">Danh sách đơn đặt hàng</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -154,31 +157,17 @@
     <div class="partner-logo">
         <div class="container">
             <div class="logo-carousel owl-carousel">
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="~/img/logo-carousel/logo-1.png" alt="">
+                @{
+                    List<Brands> lsbrand = new List<Brands>(_db.Brands.Where(m => m.isPublic == true));
+                }
+                @foreach (var b in lsbrand)
+                {
+                    <div class="logo-item">
+                        <div class="tablecell-inner">
+                            <img src="@b.Image" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="~/img/logo-carousel/logo-2.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="~/img/logo-carousel/logo-3.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="~/img/logo-carousel/logo-4.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="~/img/logo-carousel/logo-5.png" alt="">
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

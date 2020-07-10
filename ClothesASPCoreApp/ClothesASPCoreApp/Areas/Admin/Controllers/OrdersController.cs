@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MimeKit;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
@@ -139,7 +140,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             OrderDetailsViewModel objOrderVM = new OrderDetailsViewModel()
             {
                 Orders = _db.Orders.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
-                SalesPerson = _db.ApplicationUser.Where(m => m.EmailConfirmed == true).Where(m => m.isLockRole == false).ToList(),
+                SalesPerson = _db.ApplicationUser.Where(m => m.EmailConfirmed == true).Where(m => m.isLockRole == false).Where(m=>m.Role==SD.AdminEndUser).ToList(),
                 OrderDetails = orderDetailsList.ToList()
 
             };
@@ -159,7 +160,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var ordersFormDb = _db.Orders.Where(a => a.Id == objOrderVM.Orders.Id).FirstOrDefault();
-                ordersFormDb.CustomerId = objOrderVM.Orders.CustomerId;
                 ordersFormDb.isConfirmed = objOrderVM.Orders.isConfirmed;
                 if (User.IsInRole(SD.SuperAdminEndUser))
                 {
@@ -179,14 +179,26 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                             }
                         }
                     }
+                    //Gửi mail tới hòm thư của khách hàng để thông báo đơn hàng đã được vận chuyển
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        var message = new MimeMessage();
+                        message.From.Add(new MailboxAddress("ShopSaler", "vohoang17110143@gmail.com"));
+                        message.To.Add(new MailboxAddress("Not Reply", objOrderVM.Orders.OrderEmail));
+                        message.Subject = "Confirm your email to join us";
+                        message.Body = new TextPart(MimeKit.Text.TextFormat.Text)
+                        {
+                            Text = "Đơn hàng của bạn đặt ở trang ClothesShop đã được chuyển đến đơn vị giao hàng. Hãy đảm bảo nhận được cuộc gọi của Shipper trong vòng 10 tiếng tới!"
+                        };
+                        client.Connect("smtp.gmail.com", 465, true);
+                        client.Authenticate("vohoang17110143@gmail.com", "bainao1999");
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
                 }
-                /*-----------------------------------------------------------------------*/
-
                 _db.SaveChanges();
-
                 return RedirectToAction(nameof(Index));
             }
-
             return View(objOrderVM);
         }
 
@@ -198,7 +210,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            //Phần làm thêm_Phan Đình Hoàng
             //Tạo một danh sách với LINQ để tìm ra danh sách đơn đặt hàng chi tiết ứng mới mỗi id được truyền vào khi nhấn Details
             var orderDetailsList = (IEnumerable<OrderDetails>)(from p in _db.OrderDetails
                                                                join a in _db.Orders

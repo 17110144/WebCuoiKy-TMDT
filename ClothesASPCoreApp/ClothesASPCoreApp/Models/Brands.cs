@@ -13,5 +13,11 @@ namespace ClothesASPCoreApp.Models
         [Display(Name = "Tên thương hiệu")]
         [Required(ErrorMessage = "Vui lòng điền tên nhãn hiệu!")]
         public string Name { get; set; }
+
+        [Display(Name = "Ảnh")]
+        public string Image { get; set; }
+
+        [Display(Name = "Hiện ra trang chính")]
+        public bool isPublic { get; set; }
     }
 }

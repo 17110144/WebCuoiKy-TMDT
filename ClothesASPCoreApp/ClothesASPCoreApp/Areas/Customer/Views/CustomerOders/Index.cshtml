@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ClothesASPCoreApp.Models.Orders>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 style="text-align:center">Danh sách đơn đặt hàng của bạn </h2>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.OrderName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.ShipAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.OrderEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.OrderPhone)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.OrderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ShipAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.OrderEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.OrderPhone)
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-primary" href="@Url.Action("Details/" + item.Id).Replace("%2F","/")">Xem</a>
+                    @if (item.isConfirmed == false)
+                    {
+                        <a type="button" class="btn btn-danger" href="@Url.Action("Delete/"+item.Id).Replace("%2F","/")">Xóa</a>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+

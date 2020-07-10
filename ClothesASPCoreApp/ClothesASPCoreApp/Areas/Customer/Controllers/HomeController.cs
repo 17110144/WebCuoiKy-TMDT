@@ -29,7 +29,7 @@ namespace ClothesASPCoreApp.Controllers
             {
                 Products = new List<Products>(),
                 SpecialTags = new List<SpecialTags>(),
-                News = new List<News>(_db.News.Where(m => m.isPublic == true))
+                News = new List<News>(_db.News.Where(m => m.isPublic == true).ToList())
             };
         }
 

@@ -1,8 +1,5 @@
-﻿@using ClothesASPCoreApp.Utility;
-@model ClothesASPCoreApp.Models.ViewModel.HomeViewModel
+﻿@model ClothesASPCoreApp.Models.ViewModel.HomeViewModel
 @using Microsoft.AspNetCore.Http;
-@using ClothesASPCoreApp.Extensions;
-@using ClothesASPCoreApp.Models.ViewModel;
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Home Page";
@@ -64,7 +61,7 @@
                                         <h5>@p.Name</h5>
                                     </a>
                                     <div class="product-price">
-                                        @p.Price đ
+                                        @p.Price VNĐ
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +81,7 @@
                 <div class="product-slider owl-carousel">
                     @foreach (var p in Model.Products)
                     {
-                        if (p.SpecialTags.Name.Equals("HANGBANCHAY"))
+                        if (p.SpecialTags.Name.Equals("BANCHAYNHAT"))
                         {
                             <div class="product-item">
                                 <div class="pi-pic">
@@ -100,7 +97,7 @@
                                         <h5>@p.Name</h5>
                                     </a>
                                     <div class="product-price">
-                                        @p.Price đ
+                                        @p.Price VNĐ
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +121,7 @@
         <div class="row">
             <div class="col-lg-3 offset-lg-1">
                 <div class="product-large set-bg m-large" data-setbg="img/products/Sale-large.jpg">
-                    <h2 style="background-color:red">Hàng đang hạ giá</h2>
+                    <h2 style="background-color:red">Giảm giá</h2>
                     <a href="#">Khám phá ngay</a>
                 </div>
             </div>
@@ -148,7 +145,7 @@
                                         <h5>@p.Name</h5>
                                     </a>
                                     <div class="product-price">
-                                        @p.Price đ
+                                        @p.Price VNĐ
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,16 @@
+﻿@model ClothesASPCoreApp.Models.ViewModel.ShoppingCartViewModel
+@{
+    ViewData["Title"] = "OrderConfirmation";
+}
+
+<br />
+<h2 style="text-align:center" class="text-info">Thông tin đơn đặt hàng</h2>
+<br />
+
+<partial name="~/Views/Shared/_OrderCustomerDetails.cshtml" model="Model.Orders" />
+<br />
+
+<partial name="~/Views/Shared/_OrderProductDetails.cshtml" model="Model.OrderDetails" />
+
+<a style="text-align:center" asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-success">Tiếp tục mua sắm</a>
+

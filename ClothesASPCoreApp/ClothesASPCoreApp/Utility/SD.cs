@@ -11,6 +11,7 @@ namespace ClothesASPCoreApp.Utility
         public const string DefaultImageFolder = @"images";
         public const string ProductImageFolder = @"images\ProductImage";
         public const string NewsImageFolder = @"images\News";
+        public const string BrandsImageFolder = @"images\Brands";
 
         public const string SuperAdminEndUser = "Super Admin";
         public const string AdminEndUser = "Admin";

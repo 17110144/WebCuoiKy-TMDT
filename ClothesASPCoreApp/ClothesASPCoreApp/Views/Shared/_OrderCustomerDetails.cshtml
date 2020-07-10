@@ -1,62 +1,39 @@
 ﻿@model ClothesASPCoreApp.Models.Orders
 
-<h4 class="text-success">Order Details</h4>
 
-<div style="height:150px; background-color:aliceblue" class="container border">
-    <div class="col-12">
-        <div class="row" style="padding-top:10px;">
-            <div class="col-2">
-                Tên người đặt
-            </div>
-            <div class="col-3">
-                <input asp-for="@Model.OrderName" readonly class="form-control" />
-            </div>
-            <div class="col-2">
-            </div>
-            <div class="col-2">
-                Email nhận hàng
-            </div>
-            <div class="col-3">
-                <input asp-for="@Model.OrderEmail" readonly class="form-control" />
-            </div>
-
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="row" style="padding-top:10px;">
-            <div class="col-2">
-                SĐT nhận hàng
-            </div>
-            <div class="col-3">
-                <input asp-for="@Model.OrderPhone" readonly class="form-control" />
-            </div>
-            <div class="col-2">
-            </div>
-            <div class="col-2">
-                Ngày đặt hàng
-            </div>
-            <div class="col-3">
-                <input asp-for="@Model.OrderDate" readonly class="form-control" />
-            </div>
-
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="row" style="padding-top:10px;">
-            <div class="col-2">
-                Địa chỉ nhận hàng
-            </div>
-            <div class="col-3">
-                <input asp-for="@Model.ShipAddress" readonly class="form-control" />
-            </div>
-            <div class="col-2">
-            </div>
-            <div class="col-2">
-                Total Bill
-            </div>
-            <div class="col-3">
-                <input asp-for="@Model.TotalBill" readonly class="form-control" />
+<section class="checkout-section spad">
+    <div class="container">
+        <div class="checkout-form">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="place-order">
+                        <h4>Thông tin người mua</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label for="name">Tên người nhận</label>
+                                <input asp-for="@Model.OrderName" readonly type="text" id="name">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="email">Email</label>
+                                <input asp-for="@Model.OrderEmail" readonly type="text" id="email">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="phone">SĐT người nhận</label>
+                                <input asp-for="@Model.OrderPhone" readonly type="text" id="phone">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="street">Địa chỉ nhận hàng</label>
+                                <input asp-for="@Model.ShipAddress" readonly type="text" id="street">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="street">Tổng đơn hàng</label>
+                                <input asp-for="@Model.TotalBill" readonly type="text" id="street">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+

@@ -11,19 +11,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
     [Area("Customer")]
-    public class FeedbacksController : Controller
+    public class FeedbacksAdminController : Controller
     {
         private readonly ApplicationDbContext _db;
-        public FeedbacksController(ApplicationDbContext db)
+        public FeedbacksAdminController(ApplicationDbContext db)
         {
             _db = db;
         }
         public IActionResult Index()
         {
-            return View(_db.Feedbacks.ToList());
+            return View();
         }
-
-        //GET Create Action Method
+        //GET Create action Method
         public IActionResult Create()
         {
             return View();
@@ -38,9 +37,9 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 Feedbacks.Date = DateTime.Now;
                 _db.Add(Feedbacks);
                 await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Feedbacks");
             }
-            return View(Feedbacks);
+            return RedirectToAction("Index", "Feedbacks");
         }
         //GET Delete Action Method
 

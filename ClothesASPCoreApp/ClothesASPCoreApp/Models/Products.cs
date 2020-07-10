@@ -50,8 +50,6 @@ namespace ClothesASPCoreApp.Models
         [ForeignKey("SpecialTagID")]
         public virtual SpecialTags SpecialTags { get; set; }
 
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
-
         [Display(Name = "Mô tả")]
         public string Description { get; set; }
 
@@ -59,7 +57,7 @@ namespace ClothesASPCoreApp.Models
         [Display(Name = "Công cố sản phẩm")]
         public bool isPublic { get; set; }
 
-
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
 
     }
 }

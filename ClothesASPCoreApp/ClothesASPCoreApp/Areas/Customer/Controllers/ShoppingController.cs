@@ -26,7 +26,7 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
             {
                 Products = new List<Products>(),
                 Brands = new List<Brands>(_db.Brands.ToList()),
-                Categories = new List<Categories>(),
+                Categories = new List<Categories>(_db.Categories.ToList()),
                 ProductTypes = new List<ProductTypes>(),
                 SpecialTags = new List<SpecialTags>(),
             };

@@ -1,9 +1,7 @@
 ﻿@model ClothesASPCoreApp.Models.Products
 @using ClothesASPCoreApp.Extensions
 @using Microsoft.AspNetCore.Http
-@using ClothesASPCoreApp.Models.ViewModel
 @using ClothesASPCoreApp.Data;
-@using ClothesASPCoreApp.Utility
 
 @inject ApplicationDbContext _db
 @inject IHttpContextAccessor HttpContextAccessor
@@ -44,15 +42,6 @@
                                         isInBag = true;
                                     }
                                 }
-                                @*//số lượng lớn nhất có thể chọn là số lượng hàng tồn kho
-                                @if (!isInBag)
-                                {
-                                    int maxQuantity = _db.Products.Where(p => p.Id == Model.Id).Where(p => p.isPublic).Select(p => p.Quantity).FirstOrDefault();
-                                    int defaulValue = 1, minQuantity = 1;
-                                    <div class="pro-qty">
-                                        <input type="text" value="@defaulValue" min="@minQuantity" max="@maxQuantity">
-                                    </div>
-                                }*@
                             }
                             @{
                                 @if (isInBag)
@@ -67,7 +56,7 @@
                         </div>
                         <!--End Xử lý thêm vào giỏ hàng-->
                         <ul class="pd-tags">
-                            <li><span>CATEGORIES</span>: @Model.Categories.Name, @Model.ProductTypes.Name</li>
+                            <li><span>CATEGORIES</span>: @Model.Categories.Name - @Model.ProductTypes.Name</li>
                             <li><span>SPECIALTAG</span>: @Model.SpecialTags.Name</li>
                         </ul>
                     </div>

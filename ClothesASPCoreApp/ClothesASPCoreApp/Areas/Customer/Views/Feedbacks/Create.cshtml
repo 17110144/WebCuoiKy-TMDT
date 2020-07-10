@@ -1,41 +1,102 @@
 ﻿@model ClothesASPCoreApp.Models.Feedbacks
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Liên hệ";
 }
-<br />
-<h2 class="text-info">Create Feedbacks</h2>
+<!-- Map Section Begin -->
+<div class="map spad">
+    <div class="container">
+        <div class="mapouter"><div class="gmap_canvas"><iframe  width="800" height="600" id="gmap_canvas" src="https://maps.google.com/maps?q=hcmute&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://2torrentz.net"></a></div>
+        <style>
+            .mapouter {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                position: relative;
+                text-align: right;
+                height: 600px;
+                width: 800px;
+            }
 
-<form method="post" asp-action="Create">
-    <div class="p-4 border rounded">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Title" class="control-label"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Content" class="control-label"></label>
-            <input asp-for="Content" class="form-control" />
-            <span asp-validation-for="Content" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email" class="control-label"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-success">Back to List</a>
+            .gmap_canvas {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                overflow: hidden;
+                background: none !important;
+                height: 600px;
+                width: 800px;
+            }
+        </style></div>
+    </div>
+</div>
+<!-- Map Section Begin -->
+<!-- Contact Section Begin -->
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="contact-title">
+                    <h4>Liên hệ với chúng tôi ngay</h4>
+                    <p>
+                        Liên hệ với chúng tôi để có thể nhận được thông báo sớm nhất về những chương trình khuyến mãi đầy hấp dẫn và giá
+                    </p>
+                </div>
+                <div class="contact-widget">
+                    <div class="cw-item">
+                        <div class="ci-icon">
+                            <i class="ti-location-pin"></i>
+                        </div>
+                        <div class="ci-text">
+                            <span>Địa chỉ:</span>
+                            <p>1 Võ Văn Ngân, Linh Chiểu, Thủ Đức, TPHCM</p>
+                        </div>
+                    </div>
+                    <div class="cw-item">
+                        <div class="ci-icon">
+                            <i class="ti-mobile"></i>
+                        </div>
+                        <div class="ci-text">
+                            <span>SĐT:</span>
+                            <p>+84 97.188.888</p>
+                        </div>
+                    </div>
+                    <div class="cw-item">
+                        <div class="ci-icon">
+                            <i class="ti-email"></i>
+                        </div>
+                        <div class="ci-text">
+                            <span>Email:</span>
+                            <p>darkyellowshop@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1">
+                <div class="contact-form">
+                    <div class="leave-comment">
+                        <h4>Hoặc để lại nhận xét </h4>
+                        <p>Nhân viên của chúng tôi sẽ liên lạc với bạn sớm nhất có thể để giải đáp thắc mắc</p>
+                        <form method="post" asp-action="Create" class="comment-form">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input asp-for="Name" type="text" placeholder="Tên của bạn">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input asp-for="Email" type="text" placeholder="Địa chỉ Email">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input asp-for="Title" type="text" placeholder="Tiêu đề">
+                                </div>
+                                <div class="col-lg-12">
+                                    <textarea asp-for="Content" placeholder="Lời nhắn của bạn"></textarea>
+                                    <button type="submit" class="site-btn">Gửi</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</form>
-
-@section Scripts{
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</section>
+<!-- Contact Section End -->

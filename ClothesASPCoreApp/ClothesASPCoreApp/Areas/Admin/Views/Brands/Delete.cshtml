@@ -7,20 +7,41 @@
 <br />
 <h2 class="text-info">Xóa liên kết với thương hiệu</h2>
 
-<form method="post" asp-action="Delete">
-    <div class="p-4 border rounded">
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="Name"></label>
-            </div>
-            <div class="col-5">
-                <input asp-for="Name" disabled class="form-control" />
+<form method="post">
+    <div class="p-4 border rounded row">
+        <input hidden asp-for="Id" />
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" readonly class="form-control" />
+                </div>
             </div>
         </div>
-        <br />
         <div class="form-group">
-            <input type="submit" class="btn btn-danger" asp-route-id="@Model.Id" value="Xóa" />
-            <a asp-action="Index" class="btn btn-success">Trở về</a>
+            <div class="col-4">
+                <label asp-for="isPublic"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="isPublic" type="checkbox" readonly class="form-control" />
+            </div>
         </div>
+
+    </div>
+    <div class="col-4">
+        <img src="@Model.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Xóa" />
+        <a asp-action="Index" class="btn btn-success">Trở về</a>
+    </div>
     </div>
 </form>
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -3,10 +3,12 @@
     ViewData["Title"] = "Index";
 }
 @using ClothesASPCoreApp.Data;
+@using ClothesASPCoreApp.Models.ViewModel;
 @inject ApplicationDbContext _db
 
 @{
     double TotalBill = 0;
+    List<NumberOfProduct> ls;
 }
 <form method="post">
     <br /><br />
@@ -46,14 +48,26 @@
                                                             <input asp-for="@Model.OrderDetails[i].OrderQuantity" type="text" value="@defaulValue" min="@minQuantity" max="@maxQuantity">
                                                         </div>
                                                         <span asp-validation-for="@Model.OrderDetails[i].OrderQuantity" class="text-danger"></span>
+                                                        TotalBill += Model.Products[i].Price * defaulValue;
                                                     }
                                                 </div>
                                             </td>
-                                            <td class="close-td first-row"><i type="submit" class="ti-close" asp-action="remove" asp-route-id="@Model.Products[i].Id"></i></td>
+                                            <td class="close-td first-row"><button type="submit" class="ti-close" asp-action="remove" asp-route-id="@Model.Products[i].Id"></button></td>
                                         </tr>
-                                    }
+                                     }
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                            </div>
+                            <div class="col-lg-4 offset-lg-4">
+                                <div class="proceed-checkout">
+                                    <ul>
+                                        <li class="cart-total">Tổng đơn hàng: <span>@TotalBill VNĐ</span></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -33,12 +33,15 @@ namespace ClothesASPCoreApp.Models
         public string OrderName { get; set; }
 
         [Display(Name = "Địa chỉ nhận hàng")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ nhận hàng!")]
         public string ShipAddress { get; set; }
 
         [Display(Name = "SĐT nhận hàng")]
+        [Required(ErrorMessage = "Vui lòng nhập SĐT người nhận hàng")]
         public string OrderPhone { get; set; }
 
         [Display(Name = "Email nhận hàng")]
+        [Required(ErrorMessage = "Vui lòng nhập Email người nhận hàng")]
         public string OrderEmail { get; set; }
 
         [Display(Name = "Tổng đơn hàng")]
