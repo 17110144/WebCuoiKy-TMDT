@@ -77,12 +77,12 @@
                     </div>
                     <div class="col-lg-3 text-right col-md-3">
                         <ul class="nav-right">
-                            @if (HttpContextAccessor.HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart") != null)
+                            @if (HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart") != null)
                             {
                                 <li class="cart-icon">
                                     <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index">
                                         @{
-                                            var count = HttpContextAccessor.HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart").Count;
+                                            var count = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart").Count;
                                         }
                                         <i class="icon_bag_alt"></i>
                                         <span>@count</span>
@@ -90,7 +90,6 @@
                                     <div class="cart-hover">
                                         <div class="select-button">
                                             <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="primary-btn view-card">Xem giỏ hàng</a>
-                                            <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="primary-btn checkout-btn">Thanh toán</a>
                                         </div>
                                     </div>
                                 </li>
@@ -98,7 +97,7 @@
                             else
                             {
                                 <li class="cart-icon">
-                                    <a href="#">
+                                    <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index">
                                         <i class="icon_bag_alt"></i>
                                         <span>0</span>
                                     </a>
@@ -114,20 +113,17 @@
                 <div class="nav-depart">
                     <div class="depart-btn">
                         <i class="ti-menu"></i>
-                        <span>Sản phẩm nổi bật</span>
+                        <span>Chúng tôi có</span>
                         <ul class="depart-hover">
-                            <li class="active"><a href="#">Áo thun</a></li>
-                            <li><a href="#">Áo khoác</a></li>
-                            <li><a href="#">Áo sơ mi</a></li>
-                            <li><a href="#">Quần jean</a></li>
-                            <li><a href="#">Quần jogger</a></li>
-                            <li><a href="#">Quần jean</a></li>
+                            <li><a href="#">Áo</a></li>
+                            <li><a href="#">Quần</a></li>
+                            <li><a href="#">Đồ âu</a></li>
                         </ul>
                     </div>
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li class="active"><a asp-area="Customer" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                        <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                         <li><a asp-area="Customer" asp-controller="Shopping" asp-action="Index">Shop</a></li>
                         <li><a href="#">Liên hệ với chúng tôi</a></li>
                         <li>
@@ -147,12 +143,13 @@
     </header>
     @*Header End*@
 
-
     <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
+
     <!-- Partner Logo Section Begin -->
     <div class="partner-logo">
         <div class="container">

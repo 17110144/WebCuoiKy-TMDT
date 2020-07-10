@@ -6,18 +6,18 @@
     <div class="col-12">
         <div class="row" style="padding-top:10px;">
             <div class="col-2">
-                Full Name
+                Tên người đặt
             </div>
             <div class="col-3">
-                <input asp-for="@Model.Customers.Name" readonly class="form-control" />
+                <input asp-for="@Model.OrderName" readonly class="form-control" />
             </div>
             <div class="col-2">
             </div>
             <div class="col-2">
-                Email
+                Email nhận hàng
             </div>
             <div class="col-3">
-                <input asp-for="@Model.Customers.Email" readonly class="form-control" />
+                <input asp-for="@Model.OrderEmail" readonly class="form-control" />
             </div>
 
         </div>
@@ -25,15 +25,15 @@
     <div class="col-12">
         <div class="row" style="padding-top:10px;">
             <div class="col-2">
-                Số điện thoại
+                SĐT nhận hàng
             </div>
             <div class="col-3">
-                <input asp-for="@Model.Customers.PhoneNumber" readonly class="form-control" />
+                <input asp-for="@Model.OrderPhone" readonly class="form-control" />
             </div>
             <div class="col-2">
             </div>
             <div class="col-2">
-                Ngày đặt
+                Ngày đặt hàng
             </div>
             <div class="col-3">
                 <input asp-for="@Model.OrderDate" readonly class="form-control" />
@@ -47,7 +47,7 @@
                 Địa chỉ nhận hàng
             </div>
             <div class="col-3">
-                <input asp-for="@Model.Address" readonly class="form-control" />
+                <input asp-for="@Model.ShipAddress" readonly class="form-control" />
             </div>
             <div class="col-2">
             </div>

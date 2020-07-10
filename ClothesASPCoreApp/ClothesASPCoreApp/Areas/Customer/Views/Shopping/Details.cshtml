@@ -29,28 +29,22 @@
                             <p>
                                 @Model.Description
                             </p>
-                            <h4>@Model.Price</h4>
+                            <h4>@Model.Price VNĐ</h4>
                         </div>
 
-                        <!--Xử lý thêm sản phẩm vào giỏ hàng-->
+                        <!--Begin Xử lý thêm sản phẩm vào giỏ hàng-->
                         <div class="quantity">
                             @{
                                 bool isInBag = false;
-                                List<NumberOfProducts> lstCart = HttpContextAccessor.HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
-                                if (lstCart != null)
+                                List<int> lstCart = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart");
+                                if (lstCart != null && lstCart.Contains(Model.Id))
                                 {
-                                    foreach (NumberOfProducts item in lstCart)
+                                    foreach (int item in lstCart)
                                     {
-                                        if (item.IdProduct == Model.Id)
-                                        {
-                                            <div class="pro-qty">
-                                                <input asp-for="@item.Quantity" class="form-control" readonly />
-                                            </div>
-                                            isInBag = true;
-                                        }
+                                        isInBag = true;
                                     }
                                 }
-                                //số lượng lớn nhất có thể chọn là số lượng hàng tồn kho
+                                @*//số lượng lớn nhất có thể chọn là số lượng hàng tồn kho
                                 @if (!isInBag)
                                 {
                                     int maxQuantity = _db.Products.Where(p => p.Id == Model.Id).Where(p => p.isPublic).Select(p => p.Quantity).FirstOrDefault();
@@ -58,29 +52,12 @@
                                     <div class="pro-qty">
                                         <input type="text" value="@defaulValue" min="@minQuantity" max="@maxQuantity">
                                     </div>
-                                }
+                                }*@
                             }
                             @{
-                                @*if (User.IsInRole(SD.Customer))
-                                {
-
-                                    @if (isInBag)
-                                    {
-                                        <button type="submit" value="Xóa khỏi giỏ hàng" asp-action="remove" asp-route-id="@Model.Id" class="btn btn-danger form-control">Xóa khỏi giỏ hàng</button>
-                                    }
-                                    else
-                                    {
-                                        <button type="submit" asp-route-id="@Model.Id" class="btn essence-btn form-control">Thêm vào giỏ hàng</button>
-                                    }
-                                }
-                                else
-                                {
-                                    <button type="submit" value="Thêm vào giỏ hàng" disabled class="primary-btn pd-cart">Thêm vào giỏ hàng</button>
-                                }*@
-
                                 @if (isInBag)
                                 {
-                                    <button type="submit" value="Xóa khỏi giỏ hàng" asp-action="remove" asp-route-id="@Model.Id" class="primary-btn pd-cart">Xóa khỏi giỏ hàng</button>
+                                    <button type="submit" asp-action="remove" asp-route-id="@Model.Id" class="btn btn-danger form-control">Xóa khỏi giỏ hàng</button>
                                 }
                                 else
                                 {
@@ -88,7 +65,7 @@
                                 }
                             }
                         </div>
-                        <!--Xử lý thêm vào giỏ hàng-->
+                        <!--End Xử lý thêm vào giỏ hàng-->
                         <ul class="pd-tags">
                             <li><span>CATEGORIES</span>: @Model.Categories.Name, @Model.ProductTypes.Name</li>
                             <li><span>SPECIALTAG</span>: @Model.SpecialTags.Name</li>

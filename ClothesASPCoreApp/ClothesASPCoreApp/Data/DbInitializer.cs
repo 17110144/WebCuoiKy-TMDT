@@ -42,6 +42,7 @@ namespace ClothesASPCoreApp.Data
                 Email = "admin@mail.com",
                 Name = "Hoang",
                 PhoneNumber = "0973465515",
+                Role = SD.SuperAdminEndUser,
                 EmailConfirmed = true
             }, "@Admin123").GetAwaiter().GetResult();
 

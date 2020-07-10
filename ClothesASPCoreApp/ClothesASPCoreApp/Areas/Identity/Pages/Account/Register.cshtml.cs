@@ -127,6 +127,7 @@ namespace ClothesASPCoreApp.Areas.Identity.Pages.Account
                             await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
                             ApplicationUser userFromDb = _db.ApplicationUser.Where(u => u.Email == Input.Email).FirstOrDefault();
                             userFromDb.Role = SD.AdminEndUser;
+                            userFromDb.isLockRole = true;
                             _db.SaveChanges();
                         }
                         //Tạo mail chứa url callback xác thực lúc tạo nhân viên mới, sau khi toàn tất thì redirect tới trang quản lý nhân viên
@@ -138,13 +139,13 @@ namespace ClothesASPCoreApp.Areas.Identity.Pages.Account
                             message.Subject = "Confirm your email to join us";
                             message.Body = new TextPart(MimeKit.Text.TextFormat.Text)
                             {
-                                Text = "Bạn đã đăng ký với tài khoản email là: "
+                                Text = "Bạn đã được Admin của Shop chúng tôi đăng ký tài khoản nhân viên với tài khoản email là: "
                                 + user.Email + " và mật khẩu: " + Input.Password
-                                + " để xác thực nhấn: " + callbackUrl
+                                + " để xác thực nhấn: " + callbackUrl + " Trước khi đăng nhập vào trang quản lý đơn hàng, hãy đổi mật khẩu để có thể xử lý đơn hàng!"
                             };
 
                             client.Connect("smtp.gmail.com", 465, true);
-                            client.Authenticate("vohoang17110143@gmail.com", "vohoang1999");
+                            client.Authenticate("vohoang17110143@gmail.com", "bainao1999");
                             client.Send(message);
                             client.Disconnect(true);
                             return Redirect("https://localhost:44305/Admin/AdminSite");
@@ -176,7 +177,7 @@ namespace ClothesASPCoreApp.Areas.Identity.Pages.Account
                             };
 
                             client.Connect("smtp.gmail.com", 465, true);
-                            client.Authenticate("vohoang17110143@gmail.com", "vohoang1999");
+                            client.Authenticate("vohoang17110143@gmail.com", "bainao1999");
                             client.Send(message);
                             client.Disconnect(true);
                             return RedirectToPage("Login");

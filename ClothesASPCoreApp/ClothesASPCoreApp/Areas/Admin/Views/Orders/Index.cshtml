@@ -93,6 +93,7 @@
                     Trạng thái
                 </th>
                 <th></th>
+                <th></th>
             </tr>
             @foreach (var item in Model.Orders)
             {
@@ -105,16 +106,16 @@
                         @Html.DisplayFor(m => item.OrderDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.Customers.Name)
+                        @Html.DisplayFor(m => item.OrderName)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.Customers.PhoneNumber)
+                        @Html.DisplayFor(m => item.OrderPhone)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.Customers.Email)
+                        @Html.DisplayFor(m => item.OrderEmail)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.Address)
+                        @Html.DisplayFor(m => item.ShipAddress)
                     </td>
                     <td>
                         @Html.DisplayFor(m => item.isConfirmed)

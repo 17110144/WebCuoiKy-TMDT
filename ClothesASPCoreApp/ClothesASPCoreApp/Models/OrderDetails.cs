@@ -27,10 +27,5 @@ namespace ClothesASPCoreApp.Models
         [Required]
         [Display(Name = "Số lượng đặt")]
         public int OrderQuantity { get; set; }
-
-
-        [Display(Name = "Tổng giá")]
-        public double OrderDetailsTotal { get; set; }
-
     }
 }

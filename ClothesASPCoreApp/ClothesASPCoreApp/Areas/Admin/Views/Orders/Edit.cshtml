@@ -4,12 +4,10 @@
 
 @{
     ViewData["Title"] = "Edit";
-
 }
 
-
 <br />
-<h2 class="text-info">Edit Order</h2>
+<h2 class="text-info">Chỉnh sửa đơn hàng</h2>
 
 <form method="post" enctype="multipart/form-data">
     <div class="p-4 border rounded row">
@@ -18,47 +16,61 @@
         <div class="col-6">
             <div class="form-group row">
                 <div class="col-4">
-                    <label for="Orders.Customers.Name">Tên khách hàng</label>
+                    <label asp-for="Orders.OrderName"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Orders.Customers.Name" class="form-control" readonly />
+                    <input asp-for="Orders.OrderName" class="form-control" />
                 </div>
+                <span asp-validation-for="Orders.OrderName" class="text-danger"></span>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label for="Orders.Customers.Email">Email</label>
+                    <label asp-for="Orders.OrderEmail"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Orders.Customers.Email" class="form-control" />
+                    <input asp-for="Orders.OrderEmail" class="form-control" />
                 </div>
+                <span asp-validation-for="Orders.OrderEmail" class="text-danger"></span>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label for="Orders.OrderDate">Ngày đặt</label>
+                    <label asp-for="Orders.OrderDate"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Orders.OrderDate" disabled id="datepicker" type="text" class="form-control" />
                 </div>
+                <span asp-validation-for="Orders.OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label for="Orders.OrderTime">Giờ đặt</label>
+                    <label asp-for="Orders.OrderTime"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Orders.OrderTime" disabled id="timepicker" type="text" class="timepicker form-control" />
                 </div>
+                <span asp-validation-for="Orders.OrderTime" class="text-danger"></span>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label for="Orders.Customers.PhoneNumber">Số điện thoại</label>
+                    <label asp-for="Orders.OrderPhone"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Orders.Customers.PhoneNumber" class="form-control" />
+                    <input asp-for="Orders.OrderPhone" class="form-control" />
                 </div>
+                <span asp-validation-for="Orders.OrderPhone" class="text-danger"></span>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label for="Orders.SalesPerson">Nhân viên bán</label>
+                    <label asp-for="Orders.ShipAddress"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Orders.ShipAddress" class="form-control" />
+                </div>
+                <span asp-validation-for="Orders.ShipAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Orders.SalesPerson"></label>
                 </div>
                 <div class="col-8">
                     @if (User.IsInRole(SD.AdminEndUser))
@@ -101,7 +113,7 @@
         </div>
         <div class="col-6">
             @* Partial View *@
-            <partial name="~/Views/Shared/_OrderProductDetails.cshtml" model="Model" />
+            <partial name="~/Views/Shared/_OrderProductDetails.cshtml" model="Model.OrderDetails" />
         </div>
 
 
@@ -116,10 +128,10 @@
 
 
 @section Scripts{
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <script>
-        $('.timepicker').timepicker({
+    $('.timepicker').timepicker({
             timeFormat: 'h:mm p',
             interval: 30,
             minTime: '10',
@@ -156,4 +168,5 @@
             $('#timepicker').attr('value', time + ' ' + amPmTime);
 
         });</script>
+
 }

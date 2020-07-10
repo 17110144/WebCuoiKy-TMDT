@@ -7,25 +7,24 @@
 }
 
 <br />
-<br />
-<h2 class="text-info">Detail Orders</h2>
+<h2 class="text-info">Thông tin đơn hàng</h2>
 
 <div class="p-4 border rounded row">
     <div class="col-6">
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="Orders.Customers.Name"></label>
+                <label asp-for="Orders.OrderName"></label>
             </div>
             <div class="col-8">
-                <input asp-for="Orders.Customers.Name" disabled class="form-control" />
+                <input asp-for="Orders.OrderName" disabled class="form-control" />
             </div>
         </div>
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="Orders.Customers.Email"></label>
+                <label asp-for="Orders.OrderEmail"></label>
             </div>
             <div class="col-8">
-                <input asp-for="Orders.Customers.Email" disabled class="form-control" />
+                <input asp-for="Orders.OrderEmail" disabled class="form-control" />
             </div>
         </div>
         <div class="form-group row">
@@ -46,10 +45,18 @@
         </div>
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="Orders.Customers.PhoneNumber"></label>
+                <label asp-for="Orders.OrderPhone"></label>
             </div>
             <div class="col-8">
-                <input asp-for="Orders.Customers.PhoneNumber" disabled class="form-control" />
+                <input asp-for="Orders.OrderPhone" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Orders.ShipAddress"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Orders.ShipAddress" disabled class="form-control" />
             </div>
         </div>
         <div class="form-group row">
@@ -90,7 +97,7 @@
     </div>
     <div class="col-6">
         @* Partial View *@
-        <partial name="~/Views/Shared/_OrderProductDetails.cshtml" model="Model" />
+        <partial name="~/Views/Shared/_OrderProductDetails.cshtml" model="Model.OrderDetails" />
     </div>
 
 
@@ -105,7 +112,8 @@
 @section Scripts{
 
 
-    <script>$(document).ready(function () {
+    <script>
+    $(document).ready(function () {
             var OrderTime = document.getElementById('datepicker').value;
             var splitData = "";
             if (OrderTime.indexOf(" ") > 0) {

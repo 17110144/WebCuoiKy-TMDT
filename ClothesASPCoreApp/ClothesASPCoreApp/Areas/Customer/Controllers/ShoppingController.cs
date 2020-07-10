@@ -63,19 +63,15 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
 
         [HttpPost, ActionName("Details")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DetailsPost(int id, int quantity)
+        public async Task<IActionResult> DetailsPost(int id)
         {
-            List<NumberOfProducts> lstShoppingCart = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
+            List<int> lstShoppingCart = HttpContext.Session.Get<List<int>>("ssShoppingCart");
             if (lstShoppingCart == null)
             {
 
-                lstShoppingCart = new List<NumberOfProducts>();
+                lstShoppingCart = new List<int>();
             }
-            lstShoppingCart.Add(new NumberOfProducts()
-            {
-                IdProduct = id,
-                Quantity = quantity
-            });
+            lstShoppingCart.Add(id);
             HttpContext.Session.Set("ssShoppingCart", lstShoppingCart);
             return RedirectToAction("Index", "Shopping", new { area = "Customer" });
 
@@ -83,19 +79,13 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
 
         public IActionResult Remove(int id)
         {
-            List<NumberOfProducts> lstShoppingCart = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
+            List<int> lstShoppingCart = HttpContext.Session.Get<List<int>>("ssShoppingCart");
             if (lstShoppingCart.Count > 0)
             {
-                foreach (NumberOfProducts item in lstShoppingCart)
+                if (lstShoppingCart.Contains(id))
                 {
-                    if (item.IdProduct == id)
-                    {
-                        lstShoppingCart.Remove(item);
-
-                        break;
-                    }
+                    lstShoppingCart.Remove(id);
                 }
-
             }
 
             HttpContext.Session.Set("ssShoppingCart", lstShoppingCart);

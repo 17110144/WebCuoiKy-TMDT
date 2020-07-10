@@ -117,6 +117,9 @@ namespace ClothesASPCoreApp.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Sale")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -134,9 +137,6 @@ namespace ClothesASPCoreApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("OrderDetailsTotal")
-                        .HasColumnType("float");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -163,17 +163,26 @@ namespace ClothesASPCoreApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("OrderEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderPhone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SalesPersonId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ShipAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("TotalBill")
                         .HasColumnType("float");
@@ -525,6 +534,9 @@ namespace ClothesASPCoreApp.Migrations
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isLockRole")
+                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });

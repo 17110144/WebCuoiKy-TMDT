@@ -19,6 +19,9 @@ namespace ClothesASPCoreApp.Models
         [Display(Name = "Ảnh")]
         public string Image { get; set; }
 
+        [Display(Name = "Giảm")]
+        public string Sale { get; set; }
+
         [Display(Name = "Ngày đăng")]
         public DateTime Date { get; set; }
 

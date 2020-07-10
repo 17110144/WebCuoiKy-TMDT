@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ClothesASPCoreApp.Data;
 using ClothesASPCoreApp.Extensions;
 using ClothesASPCoreApp.Models;
 using ClothesASPCoreApp.Models.ViewModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,98 +22,88 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
         [BindProperty]
         public ShoppingCartViewModel ShoppingCartVM { get; set; }
 
-
         public ShoppingCartController(ApplicationDbContext db)
         {
-            this._db = db;
+            _db = db;
+
             ShoppingCartVM = new ShoppingCartViewModel()
             {
-                Products = new List<Products>()
+                Products = new List<Products>(),
+                Customer = new ApplicationUser(),
+                Orders = new Orders()
             };
         }
-        public async Task<IActionResult> Index(int id)
+        //Get Index Shopping Cart
+        public async Task<IActionResult> Index()
         {
-            List<NumberOfProducts> lstShoppingCart = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
-            if (lstShoppingCart?.Count > 0)
+            List<int> lstShoppingCart = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            if (lstShoppingCart == null)
             {
-                foreach (NumberOfProducts cartItem in lstShoppingCart)
+                return View(ShoppingCartVM);
+            }
+            if (lstShoppingCart.Count > 0)
+            {
+                foreach (int cartItem in lstShoppingCart)
                 {
-                    Products prod = _db.Products.Include(p => p.Vendors).Include(p => p.Brands).Where(p => p.Id == cartItem.IdProduct).FirstOrDefault();
-
+                    Products prod = _db.Products.Include(p => p.SpecialTags).Include(p => p.Brands).Where(p => p.Id == cartItem).FirstOrDefault();
                     ShoppingCartVM.Products.Add(prod);
                 }
             }
+            if (User.FindFirstValue(ClaimTypes.NameIdentifier) != null)
+            {
+                ApplicationUser customer = _db.ApplicationUser.Where(m => m.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault();
+                ShoppingCartVM.Customer = customer;
+                ShoppingCartVM.Orders.OrderName = customer.Name;
+                ShoppingCartVM.Orders.ShipAddress = customer.Address;
+                ShoppingCartVM.Orders.OrderPhone = customer.PhoneNumber;
+                ShoppingCartVM.Orders.OrderEmail = customer.Email;
+            }
             return View(ShoppingCartVM);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         public IActionResult IndexPost()
         {
-            List<NumberOfProducts> lstCartItems = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
-
+            List<int> lstCartItems = HttpContext.Session.Get<List<int>>("ssShoppingCart");
             ShoppingCartVM.Orders.OrderDate = DateTime.Now;
-
-            ApplicationUser customer = ShoppingCartVM.Orders.Customers;
-            _db.ApplicationUser.Add(customer);
-            _db.SaveChanges();
-
-            string idcustomer = customer.Id;
-
-            Orders orders = ShoppingCartVM.Orders;
-            orders.CustomerId = idcustomer;
-            _db.Orders.Add(orders);
-            _db.SaveChanges();
-
-            int orderId = orders.Id;
-
-            var ProductDB = _db.Products.ToList();
-
-            foreach (NumberOfProducts item in lstCartItems)
+            if (User.FindFirstValue(ClaimTypes.NameIdentifier) != null)
             {
-                OrderDetails orderItems = new OrderDetails()
+                ShoppingCartVM.Orders.CustomerId = User.FindFirstValue(ClaimTypes.NameIdentifier); ;
+            }
+            Orders Order = ShoppingCartVM.Orders;
+            _db.Orders.Add(Order);
+            _db.SaveChanges();
+
+            int OrderId = Order.Id;
+
+            for (int i = 0; i < lstCartItems.Count; i++)
+            {
+                OrderDetails OrderDetails = new OrderDetails()
                 {
-                    OrderId = orderId,
-                    ProductId = item.IdProduct,
-                    OrderQuantity = item.Quantity
+                    OrderId = OrderId,
+                    ProductId = lstCartItems[i],
+                    OrderQuantity = ShoppingCartVM.OrderDetails[i].OrderQuantity
                 };
-                for (int i = 0; i < ProductDB.Count(); i++)
-                {
-                    if (item.IdProduct == ProductDB[i].Id)
-                    {
-                        ProductDB[i].Quantity -= item.Quantity;
-                        orderItems.OrderDetailsTotal = orderItems.OrderQuantity * ProductDB[i].Price;
-                        break;
-                    }
-                }
-                _db.SaveChanges();
-                _db.OrderDetails.Add(orderItems);
+                _db.OrderDetails.Add(OrderDetails);
 
             }
             _db.SaveChanges();
-            lstCartItems = new List<NumberOfProducts>();
+            lstCartItems = new List<int>();
             HttpContext.Session.Set("ssShoppingCart", lstCartItems);
-            return RedirectToAction("OrderConfirmation", "ShoppingCart", new { Id = orderId });
-
+            return RedirectToAction("OrderConfirmation", "ShoppingCart", new { Id = OrderId });
         }
-
 
         public IActionResult Remove(int id)
         {
-            List<NumberOfProducts> lstCartItems = HttpContext.Session.Get<List<NumberOfProducts>>("ssShoppingCart");
+            List<int> lstCartItems = HttpContext.Session.Get<List<int>>("ssShoppingCart");
 
-            if (lstCartItems.Count >= 0)
+            if (lstCartItems.Count > 0)
             {
-                foreach (NumberOfProducts item in lstCartItems)
+                if (lstCartItems.Contains(id))
                 {
-                    if (item.IdProduct == id)
-                    {
-                        lstCartItems.Remove(item);
-                        break;
-                    }
+                    lstCartItems.Remove(id);
                 }
-
             }
 
             HttpContext.Session.Set("ssShoppingCart", lstCartItems);
@@ -119,28 +111,25 @@ namespace ClothesASPCoreApp.Areas.Customer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
         //Get
         public IActionResult OrderConfirmation(int id)
         {
-            Orders orders = _db.Orders.Where(a => a.Id == id).FirstOrDefault();
-            orders.Customers = _db.ApplicationUser.Where(a => a.Id == orders.CustomerId).FirstOrDefault();
 
-            List<OrderDetails> orderDetails = _db.OrderDetails.Where(p => p.OrderId == id).ToList();
-            List<Products> products = new List<Products>();
-            foreach (OrderDetails o in orderDetails)
+            ShoppingCartVM.Orders = _db.Orders.Where(a => a.Id == id).FirstOrDefault();
+            var orderDetailsList = (IEnumerable<OrderDetails>)(from od in _db.OrderDetails
+                                                               join o in _db.Orders
+                                                               on od.OrderId equals o.Id
+                                                               where o.Id == id
+                                                               select od).Include("Products");
+            var ordersFormDb = _db.Orders.Where(a => a.Id == id).FirstOrDefault();
+            ordersFormDb.TotalBill = 0;
+            foreach (var item in orderDetailsList)
             {
-                products.Add(_db.Products.Include(p => p.Vendors).Include(p => p.Brands).Where(p => p.Id == o.ProductId).FirstOrDefault());
+                ordersFormDb.TotalBill += item.Products.Price * item.OrderQuantity;
             }
-
-            OrderDetailsViewModel orderItemsVM = new OrderDetailsViewModel()
-            {
-                Orders = orders,
-                Products = products
-            };
-
-            return View(orderItemsVM);
+            ShoppingCartVM.OrderDetails = orderDetailsList.ToList();
+            _db.SaveChanges();
+            return View(ShoppingCartVM);
         }
     }
 }

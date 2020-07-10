@@ -25,14 +25,12 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             _db = db;
             _iWebHostEnvironment = iWebHostEnvironment;
         }
-        //Bất kỳ ai cũng có thể xem được trang Index của New bao gồm cả khách hàng
         public IActionResult Index()
         {
             return View(_db.News.ToList());
         }
 
 
-        //Thêm ràng buộc phân quyền cho SuperAdmin và Admin, chỉ có 2 người dùng này mới được thêm xóa sửa các nội dung tin tức của Web    
         //GET Create Action Method
         public IActionResult Create()
         {
@@ -68,7 +66,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 {
                     files[0].CopyTo(filestream);
                 }
-                newsFormDb.Image = @"\" + SD.NewsImageFolder + @"\" + News.Id + extension;
+                newsFormDb.Image = @"/" + SD.NewsImageFolder + @"/" + News.Id + extension;
             }
             else
             {
@@ -128,7 +126,7 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                     {
                         files[0].CopyTo(filestream);
                     }
-                    news.Image = @"\" + SD.NewsImageFolder + @"\" + news.Id + extension_new;
+                    news.Image = @"/" + SD.NewsImageFolder + @"/" + news.Id + extension_new;
                 }
 
                 if (news.Image != null)

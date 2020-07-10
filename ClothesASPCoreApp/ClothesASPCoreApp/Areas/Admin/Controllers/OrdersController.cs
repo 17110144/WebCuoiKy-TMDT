@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using ClothesASPCoreApp.Data;
@@ -11,6 +11,7 @@ using ClothesASPCoreApp.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ClothesASPCoreApp.Areas.Admin.Controllers
 {
@@ -26,13 +27,22 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             _db = db;
         }
 
+        public IActionResult RequestChangePassword()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> Index(int productPage = 1, string searchName = null, string searchEmail = null, string searchPhone = null, string searchDate = null)
         {
+            ApplicationUser Admin = _db.ApplicationUser.Where(m => m.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault();
+            if (Admin.isLockRole == true)
+            {
+                return RedirectToAction("RequestChangePassword", "Orders");
+            }
+
             ClaimsPrincipal currentUser = this.User;
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
             OrdersViewModel OrderVM = new OrdersViewModel()
             {
                 Orders = new List<Orders>()
@@ -71,15 +81,15 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
             if (searchName != null)
             {
-                OrderVM.Orders = OrderVM.Orders.Where(a => a.Customers.Name.ToLower().Contains(searchName.ToLower())).ToList();
+                OrderVM.Orders = OrderVM.Orders.Where(a => a.OrderName.ToLower().Contains(searchName.ToLower())).ToList();
             }
             if (searchEmail != null)
             {
-                OrderVM.Orders = OrderVM.Orders.Where(a => a.Customers.Email.ToLower().Contains(searchEmail.ToLower())).ToList();
+                OrderVM.Orders = OrderVM.Orders.Where(a => a.OrderEmail.ToLower().Contains(searchEmail.ToLower())).ToList();
             }
             if (searchPhone != null)
             {
-                OrderVM.Orders = OrderVM.Orders.Where(a => a.Customers.PhoneNumber.ToLower().Contains(searchPhone.ToLower())).ToList();
+                OrderVM.Orders = OrderVM.Orders.Where(a => a.OrderPhone.ToLower().Contains(searchPhone.ToLower())).ToList();
             }
             if (searchDate != null)
             {
@@ -109,8 +119,6 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 TotalItems = count,
                 urlParam = param.ToString()
             };
-
-
             return View(OrderVM);
         }
 
@@ -122,20 +130,19 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var productList = (IEnumerable<Products>)(from p in _db.Products
-                                                      join a in _db.OrderDetails
-                                                      on p.Id equals a.ProductId
-                                                      where a.OrderId == id
-                                                      select p).Include("Vendors").Include("Brands");
+            var orderDetailsList = (IEnumerable<OrderDetails>)(from od in _db.OrderDetails
+                                                               join o in _db.Orders
+                                                               on od.OrderId equals o.Id
+                                                               where o.Id == id
+                                                               select od).Include("Products");
 
             OrderDetailsViewModel objOrderVM = new OrderDetailsViewModel()
             {
-                Orders = _db.Orders.Include(a => a.Customers).Include(a => a.OrderDetails).Include(a => a.SalesPerson)
-                      .Where(a => a.Id == id).FirstOrDefault(),
-                SalesPerson = _db.ApplicationUser.ToList(),
-                Products = productList.ToList()
-            };
+                Orders = _db.Orders.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
+                SalesPerson = _db.ApplicationUser.Where(m => m.EmailConfirmed == true).Where(m => m.isLockRole == false).ToList(),
+                OrderDetails = orderDetailsList.ToList()
 
+            };
             return View(objOrderVM);
         }
 
@@ -144,34 +151,39 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, OrderDetailsViewModel objOrderVM)
         {
-
+            var orderDetailsList = (IEnumerable<OrderDetails>)(from od in _db.OrderDetails
+                                                               join o in _db.Orders
+                                                               on od.OrderId equals o.Id
+                                                               where o.Id == id
+                                                               select od).Include("Products");
             if (ModelState.IsValid)
             {
                 var ordersFormDb = _db.Orders.Where(a => a.Id == objOrderVM.Orders.Id).FirstOrDefault();
-                ordersFormDb.Customers = objOrderVM.Orders.Customers;
+                ordersFormDb.CustomerId = objOrderVM.Orders.CustomerId;
                 ordersFormDb.isConfirmed = objOrderVM.Orders.isConfirmed;
                 if (User.IsInRole(SD.SuperAdminEndUser))
                 {
                     ordersFormDb.SalesPersonId = objOrderVM.Orders.SalesPersonId;
                 }
-
-                /*---------------Trừ số lượng hàng khi Admin xác nhận----------------------*/
-                //if (ordersFormDb.isConfirmed == true)
-                //{
-                //    var productsList = _db.Products.ToList();
-                //    foreach (var item in orderDetailsList)
-                //    {
-                //        for (int j = 0; j < productsList.Count; j++)
-                //        {
-                //            if (item.ProductId == productsList[j].Id)
-                //            {
-                //                productsList[j].Quantity -= item.OrderQuantity;
-                //            }
-                //        }
-                //    }
-                //}
+                /*--------------Trừ số lượng hàng khi Nhân viên bán hàng bấm xác nhận----------------------*/
+                if (ordersFormDb.isConfirmed == true)
+                {
+                    var productsList = _db.Products.ToList();
+                    foreach (var item in orderDetailsList)
+                    {
+                        for (int j = 0; j < productsList.Count; j++)
+                        {
+                            if (item.ProductId == productsList[j].Id)
+                            {
+                                productsList[j].Quantity -= item.OrderQuantity;
+                            }
+                        }
+                    }
+                }
+                /*-----------------------------------------------------------------------*/
 
                 _db.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -186,21 +198,23 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var productList = (IEnumerable<Products>)(from p in _db.Products
-                                                      join a in _db.OrderDetails
-                                                      on p.Id equals a.ProductId
-                                                      where a.OrderId == id
-                                                      select p).Include("Vendors").Include("Brands");
+            //Phần làm thêm_Phan Đình Hoàng
+            //Tạo một danh sách với LINQ để tìm ra danh sách đơn đặt hàng chi tiết ứng mới mỗi id được truyền vào khi nhấn Details
+            var orderDetailsList = (IEnumerable<OrderDetails>)(from p in _db.OrderDetails
+                                                               join a in _db.Orders
+                                                               on p.OrderId equals a.Id
+                                                               where a.Id == id
+                                                               select p).Include("Products");
 
             OrderDetailsViewModel objOrderVM = new OrderDetailsViewModel()
             {
-                Orders = _db.Orders.Include(a => a.Customers).Include(a => a.OrderDetails).Include(a => a.SalesPerson)
-                      .Where(a => a.Id == id).FirstOrDefault(),
+                Orders = _db.Orders.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
                 SalesPerson = _db.ApplicationUser.ToList(),
-                Products = productList.ToList()
+                OrderDetails = orderDetailsList.ToList()
             };
 
             return View(objOrderVM);
+
         }
 
 
@@ -220,9 +234,9 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
 
             OrderDetailsViewModel objOrderVM = new OrderDetailsViewModel()
             {
-                Orders = _db.Orders.Include(o => o.Customers).Include(o => o.SalesPerson).Include(o => o.OrderDetails).Where(o => o.Id == id).FirstOrDefault(),
+                Orders = _db.Orders.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
                 SalesPerson = _db.ApplicationUser.ToList(),
-                //OrderDetails = orderDetailsList.ToList()
+                OrderDetails = orderDetailsList.ToList()
             };
 
             return View(objOrderVM);
@@ -235,30 +249,8 @@ namespace ClothesASPCoreApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var order = await _db.Orders.FindAsync(id);
-            var customer = await _db.ApplicationUser.FindAsync(order.CustomerId);
-            var tableOrderDetail = _db.OrderDetails.ToList();
-            var tableProduct = _db.Products.ToList();
-            foreach (var item in tableOrderDetail)
-            {
-                if (item.OrderId == order.Id)
-                {
-                    var orderdetail = await _db.OrderDetails.FindAsync(item.Id);
-                    foreach (var product in tableProduct)
-                    {
-                        if (product.Id == orderdetail.ProductId)
-                        {
-                            int newQuantity = product.Quantity + orderdetail.OrderQuantity;
-                            var productDB = await _db.Products.FindAsync(orderdetail.ProductId);
-                            productDB.Quantity = newQuantity;
-                            _db.Products.Update(productDB);
-                        }
-                    }
-                    _db.OrderDetails.Remove(orderdetail);
-                }
-            }
-            _db.ApplicationUser.Remove(customer);
-            _db.Orders.Remove(order);
+            var Order = await _db.Orders.FindAsync(id);
+            _db.Orders.Remove(Order);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

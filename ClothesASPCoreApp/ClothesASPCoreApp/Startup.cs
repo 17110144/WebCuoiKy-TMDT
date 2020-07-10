@@ -37,6 +37,7 @@ namespace ClothesASPCoreApp
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddHttpContextAccessor();
 
             services.AddScoped<IDbInitializer, DbInitializer>();
 
