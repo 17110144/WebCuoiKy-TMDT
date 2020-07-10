@@ -51,7 +51,7 @@
     <div class="container">
         <div class="row">
             <!--Bộ lọc thông tin sản phẩm-->
-            <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+            <div class="col-lg-2 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
                 <div class="filter-widget">
                     <h4 class="fw-title">Danh mục</h4>
                     <ul class="filter-catagories">
@@ -61,7 +61,7 @@
                     </ul>
                 </div>
                 <div class="filter-widget">
-                    <h4 class="fw-title">Thương hiệu</h4>
+                    <h4 class="fw-title"> Thương hiệu</h4>
                     <div class="fw-brand-check">
                         <div class="bc-item">
                             @foreach (var b in Model.Brands)
@@ -77,13 +77,13 @@
                 </div>
             </div>
             <!--cần xử lý tổng số kết quả tìm kiếm được và xắp xếp-->
-            <div class="col-lg-9 order-1 order-lg-2">
+            <div class="col-lg-10 order-1 order-lg-2">
                 <!--DS Sản phẩm-->
                 <div class="product-list">
                     <div class="row">
                         @foreach (var p in Model.Products)
                         {
-                            <div class="col-lg-4 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
                                         <img src="@p.Image" alt="">
